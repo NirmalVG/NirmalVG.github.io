@@ -30,6 +30,7 @@ interface Project {
   description: string;
   tech: string[];
   color: string;
+  url: string;
 }
 
 const clientProjects: Project[] = [
@@ -38,36 +39,42 @@ const clientProjects: Project[] = [
     description: "Multilingual language switching, SWR-based state management, API integration, and SEO optimization to improve search visibility.",
     tech: ["React.js", "SWR", "SEO", "i18n"],
     color: "#06b6d4",
+    url: "https://www.amritahospitals.org/",
   },
   {
     title: "Kent Construction",
     description: "EMI calculator, SWR state management, and improved overall user experience with interactive financial tools.",
     tech: ["React.js", "SWR", "API"],
     color: "#10b981",
+    url: "https://www.kenthomes.in/",
   },
   {
     title: "Yateem — E-commerce",
     description: "Choose Lens module using TanStack Query for efficient server-state management and bug fixes on the e-commerce platform.",
     tech: ["Next.js 14", "TanStack Query", "TypeScript"],
     color: "#a855f7",
+    url: "https://yateem.com/",
   },
   {
     title: "Novvi Properties",
     description: "Advanced property search filters and enhanced interactive listings to effectively surface relevant property information.",
     tech: ["Next.js", "TypeScript", "API"],
     color: "#ec4899",
+    url: "https://www.novviproperties.com/",
   },
   {
     title: "Karbone",
     description: "Dynamic search functionality and API integration for efficient product discovery and seamless UX.",
     tech: ["React.js", "API", "Search"],
     color: "#f97316",
+    url: "https://www.karbone.com/",
   },
   {
     title: "Zentral",
     description: "Reusable Next.js components, real-time data API integration, and dynamic search for quick information access.",
     tech: ["Next.js", "Real-time API", "ShadCN"],
     color: "#3b82f6",
+    url: "https://zentral.world/",
   },
 ];
 
@@ -260,19 +267,20 @@ export default function ProjectShowcase() {
         {clientProjects.map((project, index) => (
           <motion.div
             key={project.title}
-            className="glass p-6 group hover:border-white/15 transition-all duration-300 cursor-default"
+            className="glass p-6 group hover:border-white/15 transition-all duration-300 cursor-pointer"
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
             transition={{
               delay: 0.1 + index * 0.08,
               duration: 0.6,
-              ease: [0.25, 0.46, 0.45, 0.94],
+              ease: [0.25, 0.46, 0.45, 0.94] as const,
             }}
             whileHover={{
               y: -5,
               transition: { duration: 0.3 },
             }}
+            onClick={() => window.open(project.url, "_blank", "noopener,noreferrer")}
           >
             {/* Glow accent */}
             <div
@@ -290,7 +298,7 @@ export default function ProjectShowcase() {
               <p className="text-xs text-white/50 leading-relaxed mb-4">
                 {project.description}
               </p>
-              <div className="flex flex-wrap gap-1.5">
+              <div className="flex flex-wrap gap-1.5 mb-4">
                 {project.tech.map((t) => (
                   <span
                     key={t}
@@ -305,6 +313,15 @@ export default function ProjectShowcase() {
                   </span>
                 ))}
               </div>
+              <span
+                className="inline-flex items-center gap-1.5 text-xs font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                style={{ color: `${project.color}cc` }}
+              >
+                Visit Site
+                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </span>
             </div>
           </motion.div>
         ))}
