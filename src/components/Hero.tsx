@@ -32,7 +32,7 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen flex items-center justify-center px-6 py-20 overflow-hidden"
+      className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 py-16 sm:py-20 overflow-hidden"
     >
       {/* Decorative floating orbs */}
       <FloatingElement
@@ -88,7 +88,7 @@ export default function Hero() {
         {/* Name */}
         <motion.h1
           variants={itemVariants}
-          className="font-[var(--font-outfit)] text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight mb-6 gradient-text gradient-text-glow"
+          className="font-[var(--font-outfit)] text-4xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight mb-6 gradient-text gradient-text-glow"
         >
           Nirmal V G
         </motion.h1>
@@ -96,7 +96,7 @@ export default function Hero() {
         {/* Headline */}
         <motion.h2
           variants={itemVariants}
-          className="font-[var(--font-outfit)] text-xl sm:text-2xl md:text-3xl font-medium text-white/80 mb-4 tracking-wide"
+          className="font-[var(--font-outfit)] text-lg sm:text-2xl md:text-3xl font-medium text-white/80 mb-4 tracking-wide"
         >
           Software Engineer — <span className="text-neon-cyan">React</span>{" "}
           <span className="text-white/40">·</span>{" "}
@@ -169,7 +169,7 @@ export default function Hero() {
             <div className="inline-flex items-center gap-4 px-6 py-4 glass-strong rounded-2xl glow-purple mb-12">
               <div className="flex items-center gap-2">
                 <span className="text-3xl font-bold gradient-text">13+</span>
-                <span className="text-xs text-white/50 text-left leading-tight max-w-[200px]">
+                <span className="text-xs text-white/50 text-left leading-tight max-w-[160px] sm:max-w-[200px]">
                   production projects delivered across healthcare, real estate,
                   e-commerce &amp; construction
                 </span>

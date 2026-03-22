@@ -49,7 +49,7 @@ export default function MagneticButton({
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      className={`relative inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-sm tracking-wide cursor-pointer transition-all ${baseClasses} ${className}`}
+      className={`relative inline-flex items-center gap-2 px-5 py-3 sm:px-7 sm:py-3.5 rounded-xl text-sm tracking-wide cursor-pointer transition-all ${baseClasses} ${className}`}
       style={{ x, y }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}

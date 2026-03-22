@@ -82,7 +82,7 @@ const experiences: Experience[] = [
 
 export default function ExperienceTimeline() {
   return (
-    <section id="experience" className="relative py-24 px-6">
+    <section id="experience" className="relative py-16 sm:py-24 px-4 sm:px-6">
       {/* Section header */}
       <motion.div
         className="text-center mb-20"
@@ -148,7 +148,7 @@ export default function ExperienceTimeline() {
               glowColor={exp.color}
               delay={index * 0.1}
             >
-              <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
+              <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-start sm:justify-between gap-1 sm:gap-3 mb-4">
                 <div>
                   <h3 className="font-[var(--font-outfit)] text-xl sm:text-2xl font-bold text-white">
                     {exp.company}
@@ -160,7 +160,7 @@ export default function ExperienceTimeline() {
                     {exp.role}
                   </p>
                 </div>
-                <div className="text-right">
+                <div className="sm:text-right">
                   <span className="text-xs text-white/40 font-medium">
                     {exp.period}
                   </span>

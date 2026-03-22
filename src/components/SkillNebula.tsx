@@ -147,7 +147,7 @@ function SkillTag({ skill, index }: { skill: Skill; index: number }) {
 
 export default function SkillNebula() {
   return (
-    <section id="skills" className="relative py-24 px-6 overflow-hidden">
+    <section id="skills" className="relative py-16 sm:py-24 px-4 sm:px-6 overflow-hidden">
       <motion.div
         className="text-center mb-8"
         initial={{ opacity: 0, y: 30 }}
@@ -164,7 +164,7 @@ export default function SkillNebula() {
       </motion.div>
 
       <motion.div
-        className="flex justify-center gap-4 sm:gap-6 mb-14 flex-wrap"
+        className="flex justify-center gap-3 sm:gap-6 mb-14 flex-wrap"
         initial={{ opacity: 0 }}
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}

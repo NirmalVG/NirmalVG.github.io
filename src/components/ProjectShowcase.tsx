@@ -106,7 +106,7 @@ export default function ProjectShowcase() {
   }
 
   return (
-    <section id="projects" className="relative py-24 px-6">
+    <section id="projects" className="relative py-16 sm:py-24 px-4 sm:px-6">
       {/* ===== Featured Personal Project ===== */}
       <motion.div
         className="text-center mb-16"
@@ -124,7 +124,7 @@ export default function ProjectShowcase() {
       </motion.div>
 
       {/* Skin Lens Card */}
-      <div className="max-w-5xl mx-auto mb-28" style={{ perspective: 1000 }}>
+      <div className="max-w-5xl mx-auto mb-16 sm:mb-28" style={{ perspective: 1000 }}>
         <motion.div
           ref={cardRef}
           className="glass-strong relative overflow-hidden rounded-3xl p-1 cursor-default"
@@ -143,7 +143,7 @@ export default function ProjectShowcase() {
 
           <div className="relative grid grid-cols-1 lg:grid-cols-5 gap-0 rounded-[1.25rem] overflow-hidden">
             {/* Main content */}
-            <div className="lg:col-span-3 p-8 sm:p-10">
+            <div className="lg:col-span-3 p-5 sm:p-10">
               <div className="flex items-center gap-3 mb-6">
                 <FloatingElement distance={5} duration={4}>
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-neon-purple/30 to-neon-cyan/30 flex items-center justify-center backdrop-blur-sm border border-white/10">
@@ -167,7 +167,7 @@ export default function ProjectShowcase() {
                 AI-powered ingredient analysis and safety scoring.
               </p>
 
-              <div className="grid grid-cols-2 gap-3 mb-8">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
                 {features.map((feature, i) => (
                   <motion.div
                     key={feature}
@@ -188,7 +188,7 @@ export default function ProjectShowcase() {
                   href="https://skin-lens.netlify.app"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-neon-purple/20 to-neon-cyan/20 border border-white/10 text-sm font-medium text-white/90 hover:border-neon-cyan/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,214,212,0.2)]"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-neon-purple/20 to-neon-cyan/20 border border-white/10 text-xs sm:text-sm font-medium text-white/90 hover:border-neon-cyan/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,214,212,0.2)] break-all"
                 >
                   <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
                   skin-lens.netlify.app
@@ -213,7 +213,7 @@ export default function ProjectShowcase() {
                   href="https://github.com/NirmalVG/skin-lens"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex mt-3 items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-neon-purple/20 to-neon-cyan/20 border border-white/10 text-sm font-medium text-white/90 hover:border-neon-cyan/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,214,212,0.2)]"
+                  className="inline-flex mt-3 items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-neon-purple/20 to-neon-cyan/20 border border-white/10 text-xs sm:text-sm font-medium text-white/90 hover:border-neon-cyan/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,214,212,0.2)] break-all"
                 >
                   <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
                   github.com/NirmalVG/skin-lens
@@ -235,7 +235,7 @@ export default function ProjectShowcase() {
             </div>
 
             {/* Tech stack sidebar */}
-            <div className="lg:col-span-2 p-8 sm:p-10 bg-white/[0.02] border-t lg:border-t-0 lg:border-l border-white/5">
+            <div className="lg:col-span-2 p-5 sm:p-10 bg-white/[0.02] border-t lg:border-t-0 lg:border-l border-white/5">
               <h4 className="text-xs tracking-[0.2em] uppercase text-white/40 mb-6 font-medium">
                 Tech Stack
               </h4>

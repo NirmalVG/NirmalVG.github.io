@@ -6,7 +6,7 @@ import MagneticButton from "./MagneticButton"
 
 export default function Footer() {
   return (
-    <footer id="contact" className="relative py-24 px-6">
+    <footer id="contact" className="relative py-16 sm:py-24 px-4 sm:px-6">
       {/* Top gradient line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] max-w-lg h-px bg-gradient-to-r from-transparent via-neon-purple/40 to-transparent" />
 
@@ -36,7 +36,6 @@ export default function Footer() {
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
         >
-          <span className="hidden sm:flex items-center text-white/10">·</span>
           <span className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl glass text-sm text-white/60">
             <svg
               className="w-4 h-4"
@@ -129,7 +128,7 @@ export default function Footer() {
         >
           {/* Education */}
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="glass px-4 py-2 rounded-lg inline-flex items-center gap-2 text-xs text-white/40">
+            <div className="glass px-3 sm:px-4 py-2 rounded-lg inline-flex items-center gap-2 text-xs text-white/40 flex-wrap">
               <span className="text-sm">🎓</span>
               <span>
                 <span className="text-white/60 font-medium">BCA</span> — Amity
