@@ -1,18 +1,18 @@
-import type { Metadata } from "next";
-import { Inter, Outfit } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from "next"
+import { Inter, Outfit } from "next/font/google"
+import "./globals.css"
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
-});
+})
 
 const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-outfit",
   display: "swap",
-});
+})
 
 export const metadata: Metadata = {
   title: "Nirmal V G | Software Engineer — React, Next.js, TypeScript",
@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "/og-image.png",
+        url: "https://nirmalvg.github.io/og-image.png",
         width: 1200,
         height: 630,
         alt: "Nirmal V G — Software Engineer Portfolio",
@@ -61,21 +61,22 @@ export const metadata: Metadata = {
     title: "Nirmal V G | Software Engineer",
     description:
       "2+ years crafting high-performance web applications with React, Next.js & TypeScript.",
-    images: ["/og-image.png"],
+    images: ["https://nirmalvg.github.io/og-image.png"],
   },
   other: {
     "theme-color": "#050505",
+    "og:image:secure_url": "https://nirmalvg.github.io/og-image.png",
   },
-};
+}
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: React.ReactNode
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
       <body className="antialiased">{children}</body>
     </html>
-  );
+  )
 }
