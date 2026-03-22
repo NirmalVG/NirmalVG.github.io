@@ -15,7 +15,7 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Nirmal V G | Software Engineer - React, Next.js, TypeScript",
+  title: "Nirmal V G | Software Engineer — React, Next.js, TypeScript",
   description:
     "Portfolio of Nirmal V G — Software Engineer with 2+ years of experience building high-performance, scalable web applications using React, Next.js, and TypeScript.",
   keywords: [
@@ -26,12 +26,36 @@ export const metadata: Metadata = {
     "TypeScript",
     "Portfolio",
     "Frontend Developer",
+    "Full Stack Developer",
+    "Kerala",
   ],
+  authors: [{ name: "Nirmal V G", url: "https://nirmalvg.github.io" }],
+  creator: "Nirmal V G",
+  metadataBase: new URL("https://nirmalvg.github.io"),
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   openGraph: {
     title: "Nirmal V G | Software Engineer",
     description:
       "2+ years crafting high-performance web applications with React, Next.js & TypeScript.",
+    url: "https://nirmalvg.github.io",
+    siteName: "Nirmal V G — Portfolio",
+    locale: "en_US",
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nirmal V G | Software Engineer",
+    description:
+      "2+ years crafting high-performance web applications with React, Next.js & TypeScript.",
+  },
+  other: {
+    "theme-color": "#050505",
   },
 };
 

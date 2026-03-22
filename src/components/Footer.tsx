@@ -30,7 +30,7 @@ export default function Footer() {
 
         {/* Contact info row */}
         <motion.div
-          className="flex flex-wrap justify-center gap-4 mb-10"
+          className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-3 sm:gap-4 mb-10"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
@@ -45,7 +45,7 @@ export default function Footer() {
             </svg>
             9645826534
           </a>
-          <span className="flex items-center text-white/10">·</span>
+          <span className="hidden sm:flex items-center text-white/10">·</span>
           <span className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl glass text-sm text-white/60">
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -134,7 +134,7 @@ export default function Footer() {
           </div>
 
           {/* Languages */}
-          <div className="flex justify-center gap-3 mb-6">
+          <div className="flex flex-col sm:flex-row justify-center gap-2 sm:gap-3 mb-6">
             <span className="px-3 py-1 rounded-md text-[10px] font-medium border border-neon-cyan/15 bg-neon-cyan/5 text-neon-cyan/60">
               🌐 English — Full Professional Proficiency
             </span>

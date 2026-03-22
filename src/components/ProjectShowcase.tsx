@@ -133,7 +133,7 @@ export default function ProjectShowcase() {
           initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] as const }}
         >
           <div className="absolute inset-0 rounded-3xl neon-border" />
 

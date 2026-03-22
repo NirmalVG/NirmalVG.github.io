@@ -88,7 +88,7 @@ export default function Hero() {
         {/* Name */}
         <motion.h1
           variants={itemVariants}
-          className="font-[var(--font-outfit)] text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight mb-6 gradient-text gradient-text-glow"
+          className="font-[var(--font-outfit)] text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold tracking-tight mb-6 gradient-text gradient-text-glow"
         >
           Nirmal V G
         </motion.h1>
@@ -118,7 +118,7 @@ export default function Hero() {
         {/* Location & Contact */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-wrap justify-center gap-4 mb-10 text-sm text-white/40"
+          className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-2 sm:gap-4 mb-10 text-sm text-white/40"
         >
           <span className="inline-flex items-center gap-1.5">
             <svg
@@ -141,7 +141,7 @@ export default function Hero() {
             </svg>
             Thrissur, Kerala
           </span>
-          <span className="text-white/20">·</span>
+          <span className="hidden sm:flex items-center text-white/20">·</span>
           <a
             href="mailto:nirmalvg97@gmail.com"
             className="inline-flex items-center gap-1.5 hover:text-neon-pink/70 transition-colors"
