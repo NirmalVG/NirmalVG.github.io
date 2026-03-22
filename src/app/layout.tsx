@@ -69,6 +69,13 @@ export const metadata: Metadata = {
   },
 }
 
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  userScalable: true,
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -76,7 +83,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
-      <body className="antialiased">{children}</body>
+      <body
+        className="antialiased"
+        data-new-gr-c-s-check-loaded="14.1277.0"
+        data-gr-ext-installed=""
+        cz-shortcut-listen="true"
+      >
+        {children}
+      </body>
     </html>
   )
 }

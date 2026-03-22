@@ -6,7 +6,10 @@ import MagneticButton from "./MagneticButton"
 
 export default function Footer() {
   return (
-    <footer id="contact" className="relative py-16 sm:py-24 px-4 sm:px-6">
+    <footer
+      id="contact"
+      className="relative w-full py-16 sm:py-24 px-4 sm:px-6"
+    >
       {/* Top gradient line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] max-w-lg h-px bg-gradient-to-r from-transparent via-neon-purple/40 to-transparent" />
 
@@ -23,7 +26,7 @@ export default function Footer() {
         <h2 className="font-[var(--font-outfit)] text-4xl sm:text-5xl font-bold mt-3 mb-6 gradient-text">
           Let&apos;s Connect
         </h2>
-        <p className="text-white/50 text-sm sm:text-base mb-10 leading-relaxed max-w-md mx-auto">
+        <p className="text-white/50 text-sm sm:text-base mb-10 leading-relaxed max-w-md mx-auto break-words">
           Open to exciting opportunities, collaborations, and conversations
           about building great software.
         </p>
@@ -128,7 +131,7 @@ export default function Footer() {
         >
           {/* Education */}
           <div className="flex items-center justify-center gap-3 mb-4">
-            <div className="glass px-3 sm:px-4 py-2 rounded-lg inline-flex items-center gap-2 text-xs text-white/40 flex-wrap">
+            <div className="glass px-3 sm:px-4 py-2 rounded-lg inline-flex items-center gap-2 text-xs text-white/40 flex-wrap break-words">
               <span className="text-sm">🎓</span>
               <span>
                 <span className="text-white/60 font-medium">BCA</span> — Amity
