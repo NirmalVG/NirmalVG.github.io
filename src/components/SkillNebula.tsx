@@ -1,12 +1,12 @@
-"use client";
+"use client"
 
-import React, { useMemo, useEffect, useRef } from "react";
-import { motion, useAnimate } from "framer-motion";
+import React, { useMemo, useEffect, useRef } from "react"
+import { motion, useAnimate } from "framer-motion"
 
 interface Skill {
-  name: string;
-  color: string;
-  category: "frontend" | "backend" | "database" | "cloud" | "ai";
+  name: string
+  color: string
+  category: "frontend" | "backend" | "database" | "cloud" | "ai"
 }
 
 const skills: Skill[] = [
@@ -49,7 +49,7 @@ const skills: Skill[] = [
   { name: "LLM Integration", color: "#f97316", category: "ai" },
   { name: "Cursor AI", color: "#a855f7", category: "ai" },
   { name: "GitHub Copilot", color: "#3b82f6", category: "ai" },
-];
+]
 
 const categoryLabels: Record<string, { label: string; color: string }> = {
   frontend: { label: "Frontend", color: "#06b6d4" },
@@ -57,22 +57,25 @@ const categoryLabels: Record<string, { label: string; color: string }> = {
   database: { label: "Databases", color: "#3b82f6" },
   cloud: { label: "Cloud & DevOps", color: "#f97316" },
   ai: { label: "AI & Tooling", color: "#ec4899" },
-};
+}
 
 function SkillTag({ skill, index }: { skill: Skill; index: number }) {
-  const [scope, animate] = useAnimate();
-  const hasStartedRef = useRef(false);
+  const [scope, animate] = useAnimate()
+  const hasStartedRef = useRef(false)
 
-  const params = useMemo(() => ({
-    floatY: 6 + Math.random() * 12,
-    duration: 4 + Math.random() * 5,
-    delay: Math.random() * 4,
-    rotate: -2 + Math.random() * 4,
-  }), []);
+  const params = useMemo(
+    () => ({
+      floatY: 6 + Math.random() * 12,
+      duration: 4 + Math.random() * 5,
+      delay: Math.random() * 4,
+      rotate: -2 + Math.random() * 4,
+    }),
+    [],
+  )
 
   useEffect(() => {
-    if (hasStartedRef.current) return;
-    hasStartedRef.current = true;
+    if (hasStartedRef.current) return
+    hasStartedRef.current = true
     const timeout = setTimeout(() => {
       animate(
         scope.current,
@@ -84,11 +87,11 @@ function SkillTag({ skill, index }: { skill: Skill; index: number }) {
           duration: params.duration,
           repeat: Infinity,
           ease: "easeInOut",
-        }
-      );
-    }, params.delay * 1000);
-    return () => clearTimeout(timeout);
-  }, [animate, scope, params]);
+        },
+      )
+    }, params.delay * 1000)
+    return () => clearTimeout(timeout)
+  }, [animate, scope, params])
 
   return (
     <motion.div
@@ -117,16 +120,16 @@ function SkillTag({ skill, index }: { skill: Skill; index: number }) {
           boxShadow: `0 0 10px ${skill.color}10`,
         }}
         onMouseEnter={(e) => {
-          const el = e.currentTarget;
-          el.style.borderColor = `${skill.color}50`;
-          el.style.boxShadow = `0 0 25px ${skill.color}30, 0 0 50px ${skill.color}15`;
-          el.style.background = `${skill.color}15`;
+          const el = e.currentTarget
+          el.style.borderColor = `${skill.color}50`
+          el.style.boxShadow = `0 0 25px ${skill.color}30, 0 0 50px ${skill.color}15`
+          el.style.background = `${skill.color}15`
         }}
         onMouseLeave={(e) => {
-          const el = e.currentTarget;
-          el.style.borderColor = `${skill.color}20`;
-          el.style.boxShadow = `0 0 10px ${skill.color}10`;
-          el.style.background = `${skill.color}08`;
+          const el = e.currentTarget
+          el.style.borderColor = `${skill.color}20`
+          el.style.boxShadow = `0 0 10px ${skill.color}10`
+          el.style.background = `${skill.color}08`
         }}
       >
         <span
@@ -139,7 +142,7 @@ function SkillTag({ skill, index }: { skill: Skill; index: number }) {
         {skill.name}
       </span>
     </motion.div>
-  );
+  )
 }
 
 export default function SkillNebula() {
@@ -156,7 +159,7 @@ export default function SkillNebula() {
           Tech Arsenal
         </span>
         <h2 className="font-[var(--font-outfit)] text-4xl sm:text-5xl font-bold mt-3 gradient-text">
-          Skill Nebula
+          Skills
         </h2>
       </motion.div>
 
@@ -168,10 +171,16 @@ export default function SkillNebula() {
         transition={{ delay: 0.3 }}
       >
         {Object.entries(categoryLabels).map(([key, val]) => (
-          <div key={key} className="flex items-center gap-2 text-xs text-white/50">
+          <div
+            key={key}
+            className="flex items-center gap-2 text-xs text-white/50"
+          >
             <span
               className="w-2 h-2 rounded-full"
-              style={{ background: val.color, boxShadow: `0 0 8px ${val.color}60` }}
+              style={{
+                background: val.color,
+                boxShadow: `0 0 8px ${val.color}60`,
+              }}
             />
             {val.label}
           </div>
@@ -186,5 +195,5 @@ export default function SkillNebula() {
         </div>
       </div>
     </section>
-  );
+  )
 }

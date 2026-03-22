@@ -1,9 +1,9 @@
-import CursorGlow from "@/components/CursorGlow";
-import Hero from "@/components/Hero";
-import ProjectShowcase from "@/components/ProjectShowcase";
-import ExperienceTimeline from "@/components/ExperienceTimeline";
-import SkillNebula from "@/components/SkillNebula";
-import Footer from "@/components/Footer";
+import CursorGlow from "@/components/CursorGlow"
+import Hero from "@/components/Hero"
+import ProjectShowcase from "@/components/ProjectShowcase"
+import ExperienceTimeline from "@/components/ExperienceTimeline"
+import SkillNebula from "@/components/SkillNebula"
+import Footer from "@/components/Footer"
 
 export default function Home() {
   return (
@@ -17,5 +17,5 @@ export default function Home() {
         <Footer />
       </div>
     </main>
-  );
+  )
 }

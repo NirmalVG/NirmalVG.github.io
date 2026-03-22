@@ -47,12 +47,21 @@ export const metadata: Metadata = {
     siteName: "Nirmal V G — Portfolio",
     locale: "en_US",
     type: "website",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Nirmal V G — Software Engineer Portfolio",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Nirmal V G | Software Engineer",
     description:
       "2+ years crafting high-performance web applications with React, Next.js & TypeScript.",
+    images: ["/og-image.png"],
   },
   other: {
     "theme-color": "#050505",

@@ -1,108 +1,109 @@
-"use client";
+"use client"
 
-import React, { useRef } from "react";
-import {
-  motion,
-  useMotionValue,
-  useTransform,
-  useSpring,
-} from "framer-motion";
-import FloatingElement from "./FloatingElement";
+import React, { useRef } from "react"
+import { motion, useMotionValue, useTransform, useSpring } from "framer-motion"
+import FloatingElement from "./FloatingElement"
 
 const features = [
   "OAuth authentication",
   "Ingredient safety scoring",
   "Quiz-based skin profile",
   "Gemini Vision OCR",
-];
+]
 
 const techStack = [
   "React",
-  "Next.js",
-  "TypeScript",
-  "Supabase",
-  "Gemini API",
-  "Tailwind CSS",
-];
+  "Vite",
+  "FastAPI",
+  "Gemini Vision",
+  "MySQL",
+  "Netlify",
+]
 
 interface Project {
-  title: string;
-  description: string;
-  tech: string[];
-  color: string;
-  url: string;
+  title: string
+  description: string
+  tech: string[]
+  color: string
+  url: string
 }
 
 const clientProjects: Project[] = [
   {
     title: "Amritha Hospital",
-    description: "Multilingual language switching, SWR-based state management, API integration, and SEO optimization to improve search visibility.",
+    description:
+      "Multilingual language switching, SWR-based state management, API integration, and SEO optimization to improve search visibility.",
     tech: ["React.js", "SWR", "SEO", "i18n"],
     color: "#06b6d4",
     url: "https://www.amritahospitals.org/",
   },
   {
     title: "Kent Construction",
-    description: "EMI calculator, SWR state management, and improved overall user experience with interactive financial tools.",
+    description:
+      "EMI calculator, SWR state management, and improved overall user experience with interactive financial tools.",
     tech: ["React.js", "SWR", "API"],
     color: "#10b981",
     url: "https://www.kenthomes.in/",
   },
   {
     title: "Yateem — E-commerce",
-    description: "Choose Lens module using TanStack Query for efficient server-state management and bug fixes on the e-commerce platform.",
+    description:
+      "Choose Lens module using TanStack Query for efficient server-state management and bug fixes on the e-commerce platform.",
     tech: ["Next.js 14", "TanStack Query", "TypeScript"],
     color: "#a855f7",
     url: "https://yateem.com/",
   },
   {
     title: "Novvi Properties",
-    description: "Advanced property search filters and enhanced interactive listings to effectively surface relevant property information.",
+    description:
+      "Advanced property search filters and enhanced interactive listings to effectively surface relevant property information.",
     tech: ["Next.js", "TypeScript", "API"],
     color: "#ec4899",
     url: "https://www.novviproperties.com/",
   },
   {
     title: "Karbone",
-    description: "Dynamic search functionality and API integration for efficient product discovery and seamless UX.",
+    description:
+      "Dynamic search functionality and API integration for efficient product discovery and seamless UX.",
     tech: ["React.js", "API", "Search"],
     color: "#f97316",
     url: "https://www.karbone.com/",
   },
   {
     title: "Zentral",
-    description: "Reusable Next.js components, real-time data API integration, and dynamic search for quick information access.",
+    description:
+      "Reusable Next.js components, real-time data API integration, and dynamic search for quick information access.",
     tech: ["Next.js", "Real-time API", "ShadCN"],
     color: "#3b82f6",
     url: "https://zentral.world/",
   },
-];
+]
 
 export default function ProjectShowcase() {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
+  const cardRef = useRef<HTMLDivElement>(null)
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
 
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), {
     stiffness: 200,
     damping: 20,
-  });
+  })
   const rotateY = useSpring(useTransform(mouseX, [-0.5, 0.5], [-8, 8]), {
     stiffness: 200,
     damping: 20,
-  });
+  })
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    mouseX.set((e.clientX - rect.left) / rect.width - 0.5);
-    mouseY.set((e.clientY - rect.top) / rect.height - 0.5);
-  };
+    if (!cardRef.current) return
+    const rect = cardRef.current.getBoundingClientRect()
+    mouseX.set((e.clientX - rect.left) / rect.width - 0.5)
+    mouseY.set((e.clientY - rect.top) / rect.height - 0.5)
+  }
 
   const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
+    mouseX.set(0)
+    mouseY.set(0)
+  }
 
   return (
     <section id="projects" className="relative py-24 px-6">
@@ -133,7 +134,10 @@ export default function ProjectShowcase() {
           initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.9, ease: [0.25, 0.46, 0.45, 0.94] as const }}
+          transition={{
+            duration: 0.9,
+            ease: [0.25, 0.46, 0.45, 0.94] as const,
+          }}
         >
           <div className="absolute inset-0 rounded-3xl neon-border" />
 
@@ -157,10 +161,10 @@ export default function ProjectShowcase() {
               </div>
 
               <p className="text-white/60 leading-relaxed mb-6 text-sm sm:text-base">
-                A full-stack web app that analyzes cosmetic product ingredients using
-                Gemini Vision for OCR and ingredient identification. Helps users
-                understand what&apos;s in their skincare products with AI-powered
-                ingredient analysis and safety scoring.
+                A full-stack web app that analyzes cosmetic product ingredients
+                using Gemini Vision for OCR and ingredient identification. Helps
+                users understand what&apos;s in their skincare products with
+                AI-powered ingredient analysis and safety scoring.
               </p>
 
               <div className="grid grid-cols-2 gap-3 mb-8">
@@ -280,7 +284,9 @@ export default function ProjectShowcase() {
               y: -5,
               transition: { duration: 0.3 },
             }}
-            onClick={() => window.open(project.url, "_blank", "noopener,noreferrer")}
+            onClick={() =>
+              window.open(project.url, "_blank", "noopener,noreferrer")
+            }
           >
             {/* Glow accent */}
             <div
@@ -318,8 +324,18 @@ export default function ProjectShowcase() {
                 style={{ color: `${project.color}cc` }}
               >
                 Visit Site
-                <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                <svg
+                  className="w-3.5 h-3.5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                  strokeWidth={2}
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                  />
                 </svg>
               </span>
             </div>
@@ -327,5 +343,5 @@ export default function ProjectShowcase() {
         ))}
       </div>
     </section>
-  );
+  )
 }
