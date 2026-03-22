@@ -1,19 +1,19 @@
-"use client";
+"use client"
 
-import React from "react";
-import { motion } from "framer-motion";
-import GlassCard from "./GlassCard";
+import React from "react"
+import { motion } from "framer-motion"
+import GlassCard from "./GlassCard"
 
 interface Experience {
-  company: string;
-  role: string;
-  period: string;
-  location: string;
-  description: string[];
-  highlights: string[];
-  projects: string;
-  color: string;
-  icon: string;
+  company: string
+  role: string
+  period: string
+  location: string
+  description: string[]
+  highlights: string[]
+  projects: string
+  color: string
+  icon: string
 }
 
 const experiences: Experience[] = [
@@ -60,7 +60,7 @@ const experiences: Experience[] = [
       "Integrated third-party APIs across multiple projects, ensuring seamless data flow and consistent UX.",
     ],
     highlights: ["React.js", "SWR", "API Integration", "SEO"],
-    projects: "Amritha Hospital · Kent Construction · Karbone · Forte Group",
+    projects: "Amritha Hospital · Kent Construction · Karbone · Zentral",
     color: "#06b6d4",
     icon: "💻",
   },
@@ -78,7 +78,7 @@ const experiences: Experience[] = [
     color: "#f97316",
     icon: "🎓",
   },
-];
+]
 
 export default function ExperienceTimeline() {
   return (
@@ -164,9 +164,7 @@ export default function ExperienceTimeline() {
                   <span className="text-xs text-white/40 font-medium">
                     {exp.period}
                   </span>
-                  <p className="text-xs text-white/30 mt-0.5">
-                    {exp.location}
-                  </p>
+                  <p className="text-xs text-white/30 mt-0.5">{exp.location}</p>
                 </div>
               </div>
 
@@ -217,5 +215,5 @@ export default function ExperienceTimeline() {
         ))}
       </div>
     </section>
-  );
+  )
 }

@@ -154,7 +154,7 @@ export default function Footer() {
           </div>
 
           <p className="text-xs text-white/15 mt-4">
-            © {new Date().getFullYear()} Nirmal V G. Crafted with ✨
+            © {new Date().getFullYear()} Nirmal V G
           </p>
         </motion.div>
       </motion.div>
