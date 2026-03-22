@@ -20,6 +20,15 @@
 
 html {
   scroll-behavior: smooth;
+  overscroll-behavior-y: none;
+}
+
+body,
+#__next {
+  min-height: 100vh;
+  touch-action: pan-y;
+  overscroll-behavior: contain;
+  overscroll-behavior-y: none;
 }
 
 body {
