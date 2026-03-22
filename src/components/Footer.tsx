@@ -10,7 +10,6 @@ export default function Footer() {
       id="contact"
       className="relative w-full py-16 sm:py-24 px-4 sm:px-6"
     >
-      {/* Top gradient line */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[80%] max-w-lg h-px bg-gradient-to-r from-transparent via-neon-purple/40 to-transparent" />
 
       <motion.div
@@ -31,7 +30,6 @@ export default function Footer() {
           about building great software.
         </p>
 
-        {/* Contact info row */}
         <motion.div
           className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-3 sm:gap-4 mb-10"
           initial={{ opacity: 0 }}
@@ -62,7 +60,6 @@ export default function Footer() {
           </span>
         </motion.div>
 
-        {/* Mailto CTA */}
         <motion.div
           className="mb-12"
           whileInView={{ scale: [0.95, 1] }}
@@ -91,7 +88,6 @@ export default function Footer() {
           </MagneticButton>
         </motion.div>
 
-        {/* Social links row */}
         <motion.div
           className="flex justify-center gap-4 mb-12"
           initial={{ opacity: 0 }}
@@ -121,7 +117,6 @@ export default function Footer() {
           </a>
         </motion.div>
 
-        {/* Education & Languages */}
         <motion.div
           className="pt-8 border-t border-white/5"
           initial={{ opacity: 0 }}
@@ -129,7 +124,6 @@ export default function Footer() {
           viewport={{ once: true }}
           transition={{ delay: 0.5 }}
         >
-          {/* Education */}
           <div className="flex items-center justify-center gap-3 mb-4">
             <div className="glass px-3 sm:px-4 py-2 rounded-lg inline-flex items-center gap-2 text-xs text-white/40 flex-wrap break-words">
               <span className="text-sm">🎓</span>
@@ -154,7 +148,7 @@ export default function Footer() {
           </div>
 
           <p className="text-xs text-white/15 mt-4">
-            © {new Date().getFullYear()} Nirmal V G
+            © {new Date().getFullYear()} Nirmal V G.
           </p>
         </motion.div>
       </motion.div>

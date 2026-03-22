@@ -44,7 +44,7 @@ const experiences: Experience[] = [
       "Worked on the Yateem e-commerce platform, implementing the Choose Lens module using TanStack Query for efficient server-state management.",
     ],
     highlights: ["Next.js 14", "TypeScript", "TanStack Query", "ShadCN/UI"],
-    projects: "Yateem · Novvi Properties · Zentral",
+    projects: "Yateem · Novvi Properties",
     color: "#a855f7",
     icon: "🚀",
   },
