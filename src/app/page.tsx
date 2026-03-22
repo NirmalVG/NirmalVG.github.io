@@ -7,7 +7,7 @@ import Footer from "@/components/Footer"
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-x-hidden overscroll-y-contain">
+    <main className="relative min-h-screen">
       <CursorGlow />
       <div className="relative z-10">
         <Hero />

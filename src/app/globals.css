@@ -240,10 +240,9 @@ body {
     box-sizing: border-box;
   }
 
-  /* Prevent horizontal overflow during zoom */
   html,
   body {
-    overflow-x: auto;
+    overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
   }
 
