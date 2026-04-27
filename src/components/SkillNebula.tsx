@@ -6,7 +6,7 @@ import { motion, useAnimate } from "framer-motion"
 interface Skill {
   name: string
   color: string
-  category: "frontend" | "backend" | "database" | "cloud"
+  category: "frontend" | "backend" | "database" | "cloud" | "ai"
 }
 
 const skills: Skill[] = [
