@@ -6,11 +6,10 @@ import { motion, useAnimate } from "framer-motion"
 interface Skill {
   name: string
   color: string
-  category: "frontend" | "backend" | "database" | "cloud" | "ai"
+  category: "frontend" | "backend" | "database" | "cloud"
 }
 
 const skills: Skill[] = [
-  // Frontend
   { name: "React.js", color: "#06b6d4", category: "frontend" },
   { name: "Next.js (App Router)", color: "#a855f7", category: "frontend" },
   { name: "TypeScript", color: "#3b82f6", category: "frontend" },
@@ -24,31 +23,22 @@ const skills: Skill[] = [
   { name: "TanStack Query", color: "#ec4899", category: "frontend" },
   { name: "SWR", color: "#3b82f6", category: "frontend" },
   { name: "Framer Motion", color: "#ec4899", category: "frontend" },
-  // Backend
   { name: "Node.js", color: "#10b981", category: "backend" },
   { name: "Express.js", color: "#10b981", category: "backend" },
   { name: "FastAPI", color: "#10b981", category: "backend" },
   { name: "REST API Design", color: "#10b981", category: "backend" },
   { name: "Prisma ORM", color: "#a855f7", category: "backend" },
-  // Database
   { name: "PostgreSQL", color: "#3b82f6", category: "database" },
   { name: "MySQL", color: "#06b6d4", category: "database" },
   { name: "MongoDB", color: "#10b981", category: "database" },
   { name: "Supabase", color: "#10b981", category: "database" },
-  // Cloud & DevOps
   { name: "AWS", color: "#f97316", category: "cloud" },
   { name: "Vercel", color: "#a855f7", category: "cloud" },
   { name: "Netlify", color: "#06b6d4", category: "cloud" },
   { name: "Render", color: "#3b82f6", category: "cloud" },
   { name: "Git", color: "#f97316", category: "cloud" },
   { name: "GitHub", color: "#a855f7", category: "cloud" },
-  // AI & Tooling
-  { name: "Gemini API", color: "#f97316", category: "ai" },
-  { name: "OpenAI API", color: "#10b981", category: "ai" },
-  { name: "RAG Pipelines", color: "#ec4899", category: "ai" },
   { name: "LLM Integration", color: "#f97316", category: "ai" },
-  { name: "Cursor AI", color: "#a855f7", category: "ai" },
-  { name: "GitHub Copilot", color: "#3b82f6", category: "ai" },
 ]
 
 const categoryLabels: Record<string, { label: string; color: string }> = {
@@ -56,7 +46,6 @@ const categoryLabels: Record<string, { label: string; color: string }> = {
   backend: { label: "Backend", color: "#10b981" },
   database: { label: "Databases", color: "#3b82f6" },
   cloud: { label: "Cloud & DevOps", color: "#f97316" },
-  ai: { label: "AI & Tooling", color: "#ec4899" },
 }
 
 function SkillTag({ skill, index }: { skill: Skill; index: number }) {
@@ -147,7 +136,10 @@ function SkillTag({ skill, index }: { skill: Skill; index: number }) {
 
 export default function SkillNebula() {
   return (
-    <section id="skills" className="relative py-16 sm:py-24 px-4 sm:px-6 overflow-hidden">
+    <section
+      id="skills"
+      className="relative py-16 sm:py-24 px-4 sm:px-6 overflow-hidden"
+    >
       <motion.div
         className="text-center mb-8"
         initial={{ opacity: 0, y: 30 }}
