@@ -79,7 +79,7 @@ export default function Hero() {
       >
         {/* Status Badge */}
         <motion.div variants={itemVariants} className="mb-8">
-          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-xs tracking-widest uppercase text-white/60">
+          <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass text-xs tracking-widest uppercase text-theme-secondary">
             <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
             Available for opportunities
           </span>
@@ -96,19 +96,19 @@ export default function Hero() {
         {/* Headline */}
         <motion.h2
           variants={itemVariants}
-          className="font-[var(--font-outfit)] text-lg sm:text-2xl md:text-3xl font-medium text-white/80 mb-4 tracking-wide"
+          className="font-[var(--font-outfit)] text-lg sm:text-2xl md:text-3xl font-medium text-theme-primary mb-4 tracking-wide"
         >
           Software Engineer — <span className="text-neon-cyan">React</span>{" "}
-          <span className="text-white/40">·</span>{" "}
+          <span className="text-theme-tertiary">·</span>{" "}
           <span className="text-neon-purple">Next.js</span>{" "}
-          <span className="text-white/40">·</span>{" "}
+          <span className="text-theme-tertiary">·</span>{" "}
           <span className="text-neon-pink">TypeScript</span>
         </motion.h2>
 
         {/* Subheadline */}
         <motion.p
           variants={itemVariants}
-          className="text-base sm:text-lg text-white/50 max-w-2xl mx-auto mb-6 leading-relaxed"
+          className="text-base sm:text-lg text-theme-secondary max-w-2xl mx-auto mb-6 leading-relaxed"
         >
           2+ years of professional experience building high-performance,
           scalable web applications. Currently building AI-powered products,
@@ -118,7 +118,7 @@ export default function Hero() {
         {/* Location & Contact */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-2 sm:gap-4 mb-10 text-sm text-white/40"
+          className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-2 sm:gap-4 mb-10 text-sm text-theme-tertiary"
         >
           <span className="inline-flex items-center gap-1.5">
             <svg
@@ -141,7 +141,7 @@ export default function Hero() {
             </svg>
             Thrissur, Kerala
           </span>
-          <span className="hidden sm:flex items-center text-white/20">·</span>
+          <span className="hidden sm:flex items-center text-theme-muted">·</span>
           <a
             href="mailto:nirmalvg97@gmail.com"
             className="inline-flex items-center gap-1.5 hover:text-neon-pink/70 transition-colors"
@@ -169,7 +169,7 @@ export default function Hero() {
             <div className="inline-flex items-center gap-4 px-6 py-4 glass-strong rounded-2xl glow-purple mb-12">
               <div className="flex items-center gap-2">
                 <span className="text-3xl font-bold gradient-text">13+</span>
-                <span className="text-xs text-white/50 text-left leading-tight max-w-[160px] sm:max-w-[200px]">
+                <span className="text-xs text-theme-secondary text-left leading-tight max-w-[160px] sm:max-w-[200px]">
                   production projects delivered across healthcare, real estate,
                   e-commerce &amp; construction
                 </span>
@@ -202,7 +202,7 @@ export default function Hero() {
       </motion.div>
 
       {/* Bottom fade gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none z-20" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--theme-bg)] to-transparent pointer-events-none z-20" />
     </section>
   )
 }

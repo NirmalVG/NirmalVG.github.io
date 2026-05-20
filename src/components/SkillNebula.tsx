@@ -165,7 +165,7 @@ export default function SkillNebula() {
         {Object.entries(categoryLabels).map(([key, val]) => (
           <div
             key={key}
-            className="flex items-center gap-2 text-xs text-white/50"
+            className="flex items-center gap-2 text-xs text-theme-secondary"
           >
             <span
               className="w-2 h-2 rounded-full"

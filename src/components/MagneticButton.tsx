@@ -41,7 +41,7 @@ export default function MagneticButton({
   const baseClasses =
     variant === "primary"
       ? "bg-gradient-to-r from-neon-purple to-neon-cyan text-white font-semibold"
-      : "glass border border-white/10 text-white/90 font-medium";
+      : "glass border font-medium";
 
   return (
     <motion.a
@@ -50,7 +50,14 @@ export default function MagneticButton({
       target="_blank"
       rel="noopener noreferrer"
       className={`relative inline-flex items-center gap-2 px-5 py-3 sm:px-7 sm:py-3.5 rounded-xl text-sm tracking-wide cursor-pointer transition-all ${baseClasses} ${className}`}
-      style={{ x, y }}
+      style={{
+        ...(variant === 'secondary' ? {
+          borderColor: 'var(--theme-secondary-btn-border)',
+          color: 'var(--theme-secondary-btn-text)',
+        } : {}),
+        x,
+        y,
+      }}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       whileHover={{ scale: 1.05 }}
@@ -64,7 +71,7 @@ export default function MagneticButton({
           background:
             variant === "primary"
               ? "linear-gradient(135deg, rgba(168,85,247,0.4), rgba(6,214,212,0.4))"
-              : "linear-gradient(135deg, rgba(255,255,255,0.05), rgba(255,255,255,0.02))",
+              : "var(--theme-secondary-btn-glow)",
           filter: "blur(15px)",
           zIndex: -1,
         }}

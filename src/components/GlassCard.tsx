@@ -28,7 +28,7 @@ export default function GlassCard({
         ease: [0.25, 0.46, 0.45, 0.94] as const,
       }}
       whileHover={{
-        borderColor: "rgba(255,255,255,0.15)",
+        borderColor: "var(--theme-border-hover)",
         transition: { duration: 0.3 },
       }}
     >

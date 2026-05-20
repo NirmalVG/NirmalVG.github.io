@@ -146,12 +146,12 @@ export default function ProjectShowcase() {
             <div className="lg:col-span-3 p-5 sm:p-10">
               <div className="flex items-center gap-3 mb-6">
                 <FloatingElement distance={5} duration={4}>
-                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-neon-purple/30 to-neon-cyan/30 flex items-center justify-center backdrop-blur-sm border border-white/10">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-neon-purple/30 to-neon-cyan/30 flex items-center justify-center backdrop-blur-sm border border-theme">
                     <span className="text-xl">🔬</span>
                   </div>
                 </FloatingElement>
                 <div>
-                  <h3 className="font-[var(--font-outfit)] text-2xl sm:text-3xl font-bold text-white">
+                  <h3 className="font-[var(--font-outfit)] text-2xl sm:text-3xl font-bold text-theme-heading">
                     Skin Lens
                   </h3>
                   <p className="text-sm text-neon-cyan/80 font-medium">
@@ -160,7 +160,7 @@ export default function ProjectShowcase() {
                 </div>
               </div>
 
-              <p className="text-white/60 leading-relaxed mb-6 text-sm sm:text-base">
+              <p className="text-theme-secondary leading-relaxed mb-6 text-sm sm:text-base">
                 A full-stack web app that analyzes cosmetic product ingredients
                 using Gemini Vision for OCR and ingredient identification. Helps
                 users understand what&apos;s in their skincare products with
@@ -171,7 +171,7 @@ export default function ProjectShowcase() {
                 {features.map((feature, i) => (
                   <motion.div
                     key={feature}
-                    className="flex items-center gap-2 text-sm text-white/70"
+                    className="flex items-center gap-2 text-sm text-theme-secondary"
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -188,12 +188,12 @@ export default function ProjectShowcase() {
                   href="https://skin-lens.netlify.app"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-neon-purple/20 to-neon-cyan/20 border border-white/10 text-xs sm:text-sm font-medium text-white/90 hover:border-neon-cyan/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,214,212,0.2)] break-all"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-neon-purple/20 to-neon-cyan/20 border border-theme text-xs sm:text-sm font-medium text-theme-primary hover:border-neon-cyan/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,214,212,0.2)] break-all"
                 >
                   <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
                   skin-lens.netlify.app
                   <svg
-                    className="w-4 h-4 text-white/50"
+                    className="w-4 h-4 text-theme-secondary"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -213,12 +213,12 @@ export default function ProjectShowcase() {
                   href="https://github.com/NirmalVG/skin-lens"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex mt-3 items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-neon-purple/20 to-neon-cyan/20 border border-white/10 text-xs sm:text-sm font-medium text-white/90 hover:border-neon-cyan/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,214,212,0.2)] break-all"
+                  className="inline-flex mt-3 items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-neon-purple/20 to-neon-cyan/20 border border-theme text-xs sm:text-sm font-medium text-theme-primary hover:border-neon-cyan/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,214,212,0.2)] break-all"
                 >
                   <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
                   github.com/NirmalVG/skin-lens
                   <svg
-                    className="w-4 h-4 text-white/50"
+                    className="w-4 h-4 text-theme-secondary"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -235,15 +235,15 @@ export default function ProjectShowcase() {
             </div>
 
             {/* Tech stack sidebar */}
-            <div className="lg:col-span-2 p-5 sm:p-10 bg-white/[0.02] border-t lg:border-t-0 lg:border-l border-white/5">
-              <h4 className="text-xs tracking-[0.2em] uppercase text-white/40 mb-6 font-medium">
+            <div className="lg:col-span-2 p-5 sm:p-10 bg-theme-surface border-t lg:border-t-0 lg:border-l border-theme-subtle">
+              <h4 className="text-xs tracking-[0.2em] uppercase text-theme-tertiary mb-6 font-medium">
                 Tech Stack
               </h4>
               <div className="flex flex-wrap gap-2">
                 {techStack.map((tech, i) => (
                   <motion.span
                     key={tech}
-                    className="px-3 py-1.5 rounded-lg text-xs font-medium bg-white/5 text-white/70 border border-white/5 hover:border-neon-purple/30 hover:text-white/90 transition-all duration-300"
+                    className="px-3 py-1.5 rounded-lg text-xs font-medium bg-theme-surface text-theme-secondary border border-theme-subtle hover:border-neon-purple/30 hover:text-theme-primary transition-all duration-300"
                     initial={{ opacity: 0, scale: 0.8 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
@@ -258,8 +258,8 @@ export default function ProjectShowcase() {
                 ))}
               </div>
 
-              <div className="mt-8 pt-6 border-t border-white/5">
-                <div className="flex items-center gap-3 text-xs text-white/40">
+              <div className="mt-8 pt-6 border-t border-theme-subtle">
+                <div className="flex items-center gap-3 text-xs text-theme-tertiary">
                   <span className="px-2.5 py-1 rounded-md bg-neon-purple/10 text-neon-purple/80 border border-neon-purple/20">
                     Full-Stack
                   </span>
@@ -296,7 +296,7 @@ export default function ProjectShowcase() {
         {clientProjects.map((project, index) => (
           <motion.div
             key={project.title}
-            className="glass p-6 group hover:border-white/15 transition-all duration-300 cursor-pointer"
+            className="glass p-6 group hover:border-theme-hover transition-all duration-300 cursor-pointer"
             initial={{ opacity: 0, y: 40, scale: 0.95 }}
             whileInView={{ opacity: 1, y: 0, scale: 1 }}
             viewport={{ once: true }}
@@ -326,7 +326,7 @@ export default function ProjectShowcase() {
               >
                 {project.title}
               </h4>
-              <p className="text-xs text-white/50 leading-relaxed mb-4">
+              <p className="text-xs text-theme-secondary leading-relaxed mb-4">
                 {project.description}
               </p>
               <div className="flex flex-wrap gap-1.5 mb-4">

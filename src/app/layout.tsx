@@ -1,6 +1,8 @@
 import type { Metadata } from "next"
 import { Inter, Outfit } from "next/font/google"
 import "./globals.css"
+import ThemeProvider from "@/components/ThemeProvider"
+import ThemeToggle from "@/components/ThemeToggle"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -82,14 +84,30 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
-      <body
-        className="antialiased"
-        data-new-gr-c-s-check-loaded="14.1277.0"
-        data-gr-ext-installed=""
-        cz-shortcut-listen="true"
-      >
-        {children}
+    <html
+      lang="en"
+      className={`${inter.variable} ${outfit.variable}`}
+      data-theme="dark"
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: `
+  (function() {
+    try {
+      var theme = localStorage.getItem('theme');
+      if (!theme) {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      }
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch(e) {}
+  })();
+`}} />
+      </head>
+      <body className="antialiased">
+        <ThemeProvider>
+          <ThemeToggle />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   )

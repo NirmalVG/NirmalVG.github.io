@@ -119,7 +119,7 @@ export default function ExperienceTimeline() {
             {/* Timeline dot */}
             <div className="flex-shrink-0 relative z-10">
               <motion.div
-                className="w-[46px] h-[46px] sm:w-[58px] sm:h-[58px] rounded-xl flex items-center justify-center border border-white/10"
+                className="w-[46px] h-[46px] sm:w-[58px] sm:h-[58px] rounded-xl flex items-center justify-center border border-theme"
                 style={{
                   background: `linear-gradient(135deg, ${exp.color}20, ${exp.color}05)`,
                   boxShadow: `0 0 25px ${exp.color}15`,
@@ -150,7 +150,7 @@ export default function ExperienceTimeline() {
             >
               <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-start sm:justify-between gap-1 sm:gap-3 mb-4">
                 <div>
-                  <h3 className="font-[var(--font-outfit)] text-xl sm:text-2xl font-bold text-white">
+                  <h3 className="font-[var(--font-outfit)] text-xl sm:text-2xl font-bold text-theme-heading">
                     {exp.company}
                   </h3>
                   <p
@@ -161,10 +161,10 @@ export default function ExperienceTimeline() {
                   </p>
                 </div>
                 <div className="sm:text-right">
-                  <span className="text-xs text-white/40 font-medium">
+                  <span className="text-xs text-theme-tertiary font-medium">
                     {exp.period}
                   </span>
-                  <p className="text-xs text-white/30 mt-0.5">{exp.location}</p>
+                  <p className="text-xs text-theme-tertiary mt-0.5">{exp.location}</p>
                 </div>
               </div>
 
@@ -173,7 +173,7 @@ export default function ExperienceTimeline() {
                 {exp.description.map((desc, i) => (
                   <motion.li
                     key={i}
-                    className="flex items-start gap-2 text-sm text-white/55 leading-relaxed"
+                    className="flex items-start gap-2 text-sm text-theme-secondary leading-relaxed"
                     initial={{ opacity: 0, x: -10 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
@@ -189,9 +189,9 @@ export default function ExperienceTimeline() {
               </ul>
 
               {/* Projects */}
-              <div className="flex items-center gap-2 mb-4 text-xs text-white/40">
+              <div className="flex items-center gap-2 mb-4 text-xs text-theme-tertiary">
                 <span className="font-medium">Key Projects:</span>
-                <span className="text-white/60">{exp.projects}</span>
+                <span className="text-theme-secondary">{exp.projects}</span>
               </div>
 
               {/* Tech highlights */}
