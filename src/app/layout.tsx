@@ -3,6 +3,8 @@ import { Inter, Outfit } from "next/font/google"
 import "./globals.css"
 import ThemeProvider from "@/components/ThemeProvider"
 import ThemeToggle from "@/components/ThemeToggle"
+import HandTrackingProvider from "@/components/HandTrackingProvider"
+import HandTrackingToggle from "@/components/HandTrackingToggle"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -105,8 +107,11 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         <ThemeProvider>
-          <ThemeToggle />
-          {children}
+          <HandTrackingProvider>
+            <ThemeToggle />
+            <HandTrackingToggle />
+            {children}
+          </HandTrackingProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -404,3 +404,21 @@ body {
     overflow-wrap: break-word;
   }
 }
+
+/* ===== Hand Tracking ===== */
+
+html.hand-tracking-active {
+  scroll-behavior: auto !important;
+}
+
+#hand-tracking-toggle {
+  transition: background 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+}
+
+#hand-tracking-toggle:hover {
+  border-color: var(--theme-border-hover) !important;
+}
+
+[data-theme="light"] #hand-tracking-toggle:hover {
+  box-shadow: 0 4px 24px rgba(16, 185, 129, 0.12), 0 1px 3px rgba(0, 0, 0, 0.04);
+}
