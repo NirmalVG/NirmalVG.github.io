@@ -1,22 +1,22 @@
-import type { Metadata } from "next"
-import { Inter, Outfit } from "next/font/google"
-import "./globals.css"
-import ThemeProvider from "@/components/ThemeProvider"
-import ThemeToggle from "@/components/ThemeToggle"
-import HandTrackingProvider from "@/components/HandTrackingProvider"
-import HandTrackingToggle from "@/components/HandTrackingToggle"
+import type { Metadata } from "next";
+import { Inter, Outfit } from "next/font/google";
+import "./globals.css";
+import ThemeProvider from "@/components/ThemeProvider";
+import ThemeToggle from "@/components/ThemeToggle";
+import HandTrackingProvider from "@/components/HandTrackingProvider";
+import HandTrackingToggle from "@/components/HandTrackingToggle";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
   display: "swap",
-})
+});
 
 const outfit = Outfit({
   subsets: ["latin"],
   variable: "--font-outfit",
   display: "swap",
-})
+});
 
 export const metadata: Metadata = {
   title: "Nirmal V G | Software Engineer — React, Next.js, TypeScript",
@@ -71,19 +71,19 @@ export const metadata: Metadata = {
     "theme-color": "#050505",
     "og:image:secure_url": "https://nirmalvg.github.io/og-image.png",
   },
-}
+};
 
 export const viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
   userScalable: true,
-}
+};
 
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <html
@@ -93,7 +93,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: `
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
   (function() {
     try {
       var theme = localStorage.getItem('theme');
@@ -103,7 +105,9 @@ export default function RootLayout({
       document.documentElement.setAttribute('data-theme', theme);
     } catch(e) {}
   })();
-`}} />
+`,
+          }}
+        />
       </head>
       <body className="antialiased">
         <ThemeProvider>
@@ -115,5 +119,5 @@ export default function RootLayout({
         </ThemeProvider>
       </body>
     </html>
-  )
+  );
 }
