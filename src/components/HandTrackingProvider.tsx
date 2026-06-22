@@ -8,6 +8,7 @@ import React, {
   useCallback,
   useEffect,
 } from "react";
+import { MotionConfig } from "framer-motion";
 
 /* ───── Types ───── */
 
@@ -57,8 +58,18 @@ function getScrollTop(): number {
 }
 
 function getMaxScrollTop(): number {
-  const root = getScrollRoot();
-  return Math.max(0, root.scrollHeight - window.innerHeight);
+  // Use the maximum of multiple measurement methods to avoid undercount
+  // when Framer Motion animations haven't fully expanded content yet
+  const body = document.body;
+  const html = document.documentElement;
+  const scrollHeight = Math.max(
+    body.scrollHeight,
+    body.offsetHeight,
+    html.clientHeight,
+    html.scrollHeight,
+    html.offsetHeight,
+  );
+  return Math.max(0, scrollHeight - window.innerHeight);
 }
 
 /** Apply vertical scroll; returns false only when clamped at a boundary. */
@@ -349,13 +360,46 @@ export default function HandTrackingProvider({
     }
   }, [cleanup]);
 
+  /* ──────────────── Pre-trigger whileInView animations ──────────────── */
+
+  /**
+   * Rapidly scroll to the bottom and back so every Framer Motion
+   * `whileInView` / `viewport={{ once: true }}` animation fires.
+   * This stabilises the page height before hand-tracking takes over scrolling.
+   */
+  const preTriggerAnimations = useCallback((): Promise<void> => {
+    return new Promise((resolve) => {
+      const savedPos = getScrollTop();
+      const maxScroll = getMaxScrollTop();
+
+      // Scroll to absolute bottom instantly
+      window.scrollTo({ top: maxScroll, behavior: "auto" });
+
+      // Give IntersectionObserver callbacks a frame to fire
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          // Scroll back to original position
+          window.scrollTo({ top: savedPos, behavior: "auto" });
+          // Allow one more frame for any layout to settle
+          requestAnimationFrame(() => {
+            scrollTargetPositionRef.current = getScrollTop();
+            resolve();
+          });
+        });
+      });
+    });
+  }, []);
+
   /* ──────────────── Enable / disable lifecycle ──────────────── */
 
   useEffect(() => {
     if (handTrackingEnabled) {
-      startTracking();
       // Add class to <html> to override scroll-behavior
       document.documentElement.classList.add("hand-tracking-active");
+      // Pre-trigger all whileInView animations, then start tracking
+      preTriggerAnimations().then(() => {
+        startTracking();
+      });
     } else {
       cleanup();
       document.documentElement.classList.remove("hand-tracking-active");
@@ -364,7 +408,7 @@ export default function HandTrackingProvider({
       cleanup();
       document.documentElement.classList.remove("hand-tracking-active");
     };
-  }, [handTrackingEnabled, startTracking, cleanup]);
+  }, [handTrackingEnabled, startTracking, cleanup, preTriggerAnimations]);
 
   /* ──────────────── Smooth scroll rAF loop ──────────────── */
 
@@ -404,16 +448,17 @@ export default function HandTrackingProvider({
             : Math.ceil(scrollAccumulator);
         scrollAccumulator -= scrollAmount;
 
-        const atTop = current <= 0;
-        const atBottom = current >= getMaxScrollTop() - 1;
-        const scrolled = applyScrollDelta(scrollAmount);
+        applyScrollDelta(scrollAmount);
 
+        // Only kill momentum when truly pinned at an edge for several frames
+        const afterScroll = getScrollTop();
+        const maxScroll = getMaxScrollTop();
         if (
-          !scrolled &&
-          ((scrollAmount < 0 && atTop) || (scrollAmount > 0 && atBottom))
+          (scrollAmount < 0 && afterScroll <= 0) ||
+          (scrollAmount > 0 && afterScroll >= maxScroll - 2)
         ) {
           scrollAccumulator = 0;
-          smoothedVelocityRef.current = 0;
+          smoothedVelocityRef.current *= 0.5;
         }
       }
 
@@ -447,7 +492,12 @@ export default function HandTrackingProvider({
         isHandDetected,
       }}
     >
-      {children}
+      <MotionConfig
+        reducedMotion={handTrackingEnabled ? "always" : "never"}
+        transition={handTrackingEnabled ? { duration: 0 } : undefined}
+      >
+        {children}
+      </MotionConfig>
     </HandTrackingContext.Provider>
   );
 }

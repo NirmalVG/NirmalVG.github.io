@@ -2,6 +2,7 @@
 
 import React, { useMemo, useEffect, useRef } from "react"
 import { motion, useAnimate } from "framer-motion"
+import { useHandTracking } from "./HandTrackingProvider"
 
 interface Skill {
   name: string
@@ -48,9 +49,10 @@ const categoryLabels: Record<string, { label: string; color: string }> = {
   cloud: { label: "Cloud & DevOps", color: "#f97316" },
 }
 
-function SkillTag({ skill, index }: { skill: Skill; index: number }) {
+function SkillTag({ skill, index, handTrackingEnabled }: { skill: Skill; index: number; handTrackingEnabled: boolean }) {
   const [scope, animate] = useAnimate()
   const hasStartedRef = useRef(false)
+  const animationRef = useRef<any>(null)
 
   const params = useMemo(
     () => ({
@@ -63,10 +65,24 @@ function SkillTag({ skill, index }: { skill: Skill; index: number }) {
   )
 
   useEffect(() => {
+    // Stop floating animation when hand tracking is enabled
+    if (handTrackingEnabled) {
+      if (animationRef.current) {
+        animationRef.current.stop?.()
+        animationRef.current = null
+      }
+      // Reset transform to neutral position
+      if (scope.current) {
+        scope.current.style.transform = "none"
+      }
+      return
+    }
+
+    // Start floating animation only when hand tracking is off
     if (hasStartedRef.current) return
     hasStartedRef.current = true
     const timeout = setTimeout(() => {
-      animate(
+      animationRef.current = animate(
         scope.current,
         {
           y: [0, -params.floatY, params.floatY * 0.3, 0],
@@ -80,7 +96,36 @@ function SkillTag({ skill, index }: { skill: Skill; index: number }) {
       )
     }, params.delay * 1000)
     return () => clearTimeout(timeout)
-  }, [animate, scope, params])
+  }, [animate, scope, params, handTrackingEnabled])
+
+  // When hand tracking is on, render without Framer Motion animations
+  if (handTrackingEnabled) {
+    return (
+      <div
+        ref={scope}
+        className="relative group cursor-default"
+      >
+        <span
+          className="inline-flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl text-[11px] sm:text-xs font-medium backdrop-blur-xl border transition-all duration-300"
+          style={{
+            background: `${skill.color}08`,
+            borderColor: `${skill.color}20`,
+            color: `${skill.color}dd`,
+            boxShadow: `0 0 10px ${skill.color}10`,
+          }}
+        >
+          <span
+            className="w-1.5 h-1.5 rounded-full flex-shrink-0"
+            style={{
+              background: skill.color,
+              boxShadow: `0 0 6px ${skill.color}80`,
+            }}
+          />
+          {skill.name}
+        </span>
+      </div>
+    )
+  }
 
   return (
     <motion.div
@@ -135,33 +180,45 @@ function SkillTag({ skill, index }: { skill: Skill; index: number }) {
 }
 
 export default function SkillNebula() {
+  const { handTrackingEnabled } = useHandTracking()
+
+  const HeadingWrapper = handTrackingEnabled ? "div" : motion.div
+  const headingProps = handTrackingEnabled
+    ? { className: "text-center mb-8" }
+    : {
+        className: "text-center mb-8",
+        initial: { opacity: 0, y: 30 },
+        whileInView: { opacity: 1, y: 0 },
+        viewport: { once: true },
+        transition: { duration: 0.7 },
+      }
+
+  const LegendWrapper = handTrackingEnabled ? "div" : motion.div
+  const legendProps = handTrackingEnabled
+    ? { className: "flex justify-center gap-3 sm:gap-6 mb-14 flex-wrap" }
+    : {
+        className: "flex justify-center gap-3 sm:gap-6 mb-14 flex-wrap",
+        initial: { opacity: 0 },
+        whileInView: { opacity: 1 },
+        viewport: { once: true },
+        transition: { delay: 0.3 },
+      }
+
   return (
     <section
       id="skills"
       className="relative py-16 sm:py-24 px-4 sm:px-6 overflow-hidden"
     >
-      <motion.div
-        className="text-center mb-8"
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.7 }}
-      >
+      <HeadingWrapper {...(headingProps as any)}>
         <span className="text-xs tracking-[0.3em] uppercase text-neon-pink/70 font-medium">
           Tech Arsenal
         </span>
         <h2 className="font-[var(--font-outfit)] text-4xl sm:text-5xl font-bold mt-3 gradient-text">
           Skills
         </h2>
-      </motion.div>
+      </HeadingWrapper>
 
-      <motion.div
-        className="flex justify-center gap-3 sm:gap-6 mb-14 flex-wrap"
-        initial={{ opacity: 0 }}
-        whileInView={{ opacity: 1 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.3 }}
-      >
+      <LegendWrapper {...(legendProps as any)}>
         {Object.entries(categoryLabels).map(([key, val]) => (
           <div
             key={key}
@@ -177,12 +234,12 @@ export default function SkillNebula() {
             {val.label}
           </div>
         ))}
-      </motion.div>
+      </LegendWrapper>
 
       <div className="max-w-5xl mx-auto relative min-h-[300px] flex items-center justify-center">
         <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3">
           {skills.map((skill, index) => (
-            <SkillTag key={skill.name} skill={skill} index={index} />
+            <SkillTag key={skill.name} skill={skill} index={index} handTrackingEnabled={handTrackingEnabled} />
           ))}
         </div>
       </div>

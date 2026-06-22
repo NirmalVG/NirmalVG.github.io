@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 import ThemeProvider from "@/components/ThemeProvider";
 import ThemeToggle from "@/components/ThemeToggle";
@@ -92,24 +93,11 @@ export default function RootLayout({
       data-theme="dark"
       suppressHydrationWarning
     >
-      <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-  (function() {
-    try {
-      var theme = localStorage.getItem('theme');
-      if (!theme) {
-        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-      }
-      document.documentElement.setAttribute('data-theme', theme);
-    } catch(e) {}
-  })();
-`,
-          }}
-        />
-      </head>
-      <body className="antialiased">
+      <body className="antialiased" suppressHydrationWarning>
+        <Script
+          id="theme-init"
+          strategy="beforeInteractive"
+        >{`(function(){try{var t=localStorage.getItem('theme');if(!t){t=window.matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){}})()`}</Script>
         <ThemeProvider>
           <HandTrackingProvider>
             <ThemeToggle />
