@@ -98,11 +98,13 @@ export default function Hero() {
           variants={itemVariants}
           className="font-[var(--font-outfit)] text-lg sm:text-2xl md:text-3xl font-medium text-theme-primary mb-4 tracking-wide"
         >
-          Software Engineer — <span className="text-neon-cyan">React</span>{" "}
+          AI Engineer (Full Stack) — <span className="text-neon-cyan">RAG</span>{" "}
           <span className="text-theme-tertiary">·</span>{" "}
-          <span className="text-neon-purple">Next.js</span>{" "}
+          <span className="text-neon-purple">LLMs</span>{" "}
           <span className="text-theme-tertiary">·</span>{" "}
-          <span className="text-neon-pink">TypeScript</span>
+          <span className="text-neon-pink">Python</span>
+          <span className="text-theme-tertiary">·</span>{" "}
+          <span className="text-neon-blue">Next.js</span>
         </motion.h2>
 
         {/* Subheadline */}
@@ -110,9 +112,11 @@ export default function Hero() {
           variants={itemVariants}
           className="text-base sm:text-lg text-theme-secondary max-w-2xl mx-auto mb-6 leading-relaxed"
         >
-          2+ years of professional experience building high-performance,
-          scalable web applications. Currently building AI-powered products,
-          integrating LLMs and modern APIs into full-stack applications.
+          I build production AI systems end-to-end — from hybrid retrieval and
+          LLM orchestration on the backend to the interfaces people actually
+          use. 2+ years shipping React/Next.js products professionally, now
+          focused on retrieval-augmented generation, LLM integration, and
+          evaluation-driven AI engineering.
         </motion.p>
 
         {/* Location & Contact */}
@@ -141,7 +145,9 @@ export default function Hero() {
             </svg>
             Thrissur, Kerala
           </span>
-          <span className="hidden sm:flex items-center text-theme-muted">·</span>
+          <span className="hidden sm:flex items-center text-theme-muted">
+            ·
+          </span>
           <a
             href="mailto:nirmalvg97@gmail.com"
             className="inline-flex items-center gap-1.5 hover:text-neon-pink/70 transition-colors"
@@ -171,7 +177,8 @@ export default function Hero() {
                 <span className="text-3xl font-bold gradient-text">13+</span>
                 <span className="text-xs text-theme-secondary text-left leading-tight max-w-[160px] sm:max-w-[200px]">
                   production projects delivered across healthcare, real estate,
-                  e-commerce &amp; construction
+                  e-commerce &amp; construction — now building AI-native
+                  products from architecture to deployment
                 </span>
               </div>
             </div>

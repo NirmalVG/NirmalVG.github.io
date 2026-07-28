@@ -20,6 +20,24 @@ const techStack = [
   "Netlify",
 ]
 
+const keralaFeatures = [
+  "Hybrid BM25 + dense retrieval",
+  "Cohere Rerank v3",
+  "Groq LLaMA inference",
+  "pgvector on Supabase",
+]
+
+const keralaTechStack = [
+  "Next.js",
+  "FastAPI",
+  "Supabase/pgvector",
+  "Cohere",
+  "Groq",
+  "Tavily",
+  "Vercel",
+  "Render",
+]
+
 interface Project {
   title: string
   description: string
@@ -84,6 +102,11 @@ export default function ProjectShowcase() {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
+  // Kerala card motion values and ref
+  const keralaCardRef = useRef<HTMLDivElement>(null)
+  const mouseXKerala = useMotionValue(0)
+  const mouseYKerala = useMotionValue(0)
+
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), {
     stiffness: 200,
     damping: 20,
@@ -92,6 +115,15 @@ export default function ProjectShowcase() {
     stiffness: 200,
     damping: 20,
   })
+
+  const keralaRotateX = useSpring(
+    useTransform(mouseYKerala, [-0.5, 0.5], [8, -8]),
+    { stiffness: 200, damping: 20 },
+  )
+  const keralaRotateY = useSpring(
+    useTransform(mouseXKerala, [-0.5, 0.5], [-8, 8]),
+    { stiffness: 200, damping: 20 },
+  )
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!cardRef.current) return
@@ -103,6 +135,18 @@ export default function ProjectShowcase() {
   const handleMouseLeave = () => {
     mouseX.set(0)
     mouseY.set(0)
+  }
+
+  const handleKeralaMouseMove = (e: React.MouseEvent) => {
+    if (!keralaCardRef.current) return
+    const rect = keralaCardRef.current.getBoundingClientRect()
+    mouseXKerala.set((e.clientX - rect.left) / rect.width - 0.5)
+    mouseYKerala.set((e.clientY - rect.top) / rect.height - 0.5)
+  }
+
+  const handleKeralaMouseLeave = () => {
+    mouseXKerala.set(0)
+    mouseYKerala.set(0)
   }
 
   return (
@@ -124,7 +168,10 @@ export default function ProjectShowcase() {
       </motion.div>
 
       {/* Skin Lens Card */}
-      <div className="max-w-5xl mx-auto mb-16 sm:mb-28" style={{ perspective: 1000 }}>
+      <div
+        className="max-w-5xl mx-auto mb-16 sm:mb-28"
+        style={{ perspective: 1000 }}
+      >
         <motion.div
           ref={cardRef}
           className="glass-strong relative overflow-hidden rounded-3xl p-1 cursor-default"
@@ -265,6 +312,164 @@ export default function ProjectShowcase() {
                   </span>
                   <span className="px-2.5 py-1 rounded-md bg-neon-cyan/10 text-neon-cyan/80 border border-neon-cyan/20">
                     AI/ML
+                  </span>
+                  <span className="px-2.5 py-1 rounded-md bg-neon-green/10 text-neon-green/80 border border-neon-green/20">
+                    Deployed
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      </div>
+
+      {/* KeralaGPT Card */}
+      <div
+        className="max-w-5xl mx-auto mb-16 sm:mb-28"
+        style={{ perspective: 1000 }}
+      >
+        <motion.div
+          ref={keralaCardRef}
+          className="glass-strong relative overflow-hidden rounded-3xl p-1 cursor-default"
+          style={{
+            rotateX: keralaRotateX,
+            rotateY: keralaRotateY,
+            transformStyle: "preserve-3d",
+          }}
+          onMouseMove={handleKeralaMouseMove}
+          onMouseLeave={handleKeralaMouseLeave}
+          initial={{ opacity: 0, y: 60 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{
+            duration: 0.9,
+            ease: [0.25, 0.46, 0.45, 0.94] as const,
+          }}
+        >
+          <div className="absolute inset-0 rounded-3xl neon-border" />
+
+          <div className="relative grid grid-cols-1 lg:grid-cols-5 gap-0 rounded-[1.25rem] overflow-hidden">
+            <div className="lg:col-span-3 p-5 sm:p-10">
+              <div className="flex items-center gap-3 mb-6">
+                <FloatingElement distance={5} duration={4}>
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-neon-purple/30 to-neon-cyan/30 flex items-center justify-center backdrop-blur-sm border border-theme">
+                    <span className="text-xl">🏛️</span>
+                  </div>
+                </FloatingElement>
+                <div>
+                  <h3 className="font-[var(--font-outfit)] text-2xl sm:text-3xl font-bold text-theme-heading">
+                    KeralaGPT
+                  </h3>
+                  <p className="text-sm text-neon-cyan/80 font-medium">
+                    Kerala Cultural RAG System
+                  </p>
+                </div>
+              </div>
+
+              <p className="text-theme-secondary leading-relaxed mb-6 text-sm sm:text-base">
+                A production RAG system answering questions on Kerala culture,
+                art, and history using hybrid BM25 + dense retrieval, Cohere
+                Rerank v3 for precision reranking, and Groq-hosted LLaMA for
+                generation — grounded with live web context via Tavily.
+              </p>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
+                {keralaFeatures.map((feature, i) => (
+                  <motion.div
+                    key={feature}
+                    className="flex items-center gap-2 text-sm text-theme-secondary"
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 + i * 0.1 }}
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-neon-green flex-shrink-0" />
+                    {feature}
+                  </motion.div>
+                ))}
+              </div>
+
+              <FloatingElement distance={4} delay={0.5} duration={5}>
+                <a
+                  href="https://keralagpt.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-neon-purple/20 to-neon-cyan/20 border border-theme text-xs sm:text-sm font-medium text-theme-primary hover:border-neon-cyan/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,214,212,0.2)] break-all"
+                >
+                  <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
+                  keralagpt.vercel.app
+                  <svg
+                    className="w-4 h-4 text-theme-secondary"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
+                  </svg>
+                </a>
+              </FloatingElement>
+
+              <FloatingElement distance={4} delay={0.5} duration={5}>
+                <a
+                  href="https://github.com/NirmalVG/keralagpt"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex mt-3 items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-neon-purple/20 to-neon-cyan/20 border border-theme text-xs sm:text-sm font-medium text-theme-primary hover:border-neon-cyan/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,214,212,0.2)] break-all"
+                >
+                  <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
+                  github.com/NirmalVG/keralagpt
+                  <svg
+                    className="w-4 h-4 text-theme-secondary"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+                    />
+                  </svg>
+                </a>
+              </FloatingElement>
+            </div>
+
+            <div className="lg:col-span-2 p-5 sm:p-10 bg-theme-surface border-t lg:border-t-0 lg:border-l border-theme-subtle">
+              <h4 className="text-xs tracking-[0.2em] uppercase text-theme-tertiary mb-6 font-medium">
+                Tech Stack
+              </h4>
+              <div className="flex flex-wrap gap-2">
+                {keralaTechStack.map((tech, i) => (
+                  <motion.span
+                    key={tech}
+                    className="px-3 py-1.5 rounded-lg text-xs font-medium bg-theme-surface text-theme-secondary border border-theme-subtle hover:border-neon-purple/30 hover:text-theme-primary transition-all duration-300"
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.5 + i * 0.08 }}
+                    whileHover={{
+                      scale: 1.1,
+                      boxShadow: "0 0 15px rgba(168,85,247,0.2)",
+                    }}
+                  >
+                    {tech}
+                  </motion.span>
+                ))}
+              </div>
+
+              <div className="mt-8 pt-6 border-t border-theme-subtle">
+                <div className="flex items-center gap-3 text-xs text-theme-tertiary">
+                  <span className="px-2.5 py-1 rounded-md bg-neon-purple/10 text-neon-purple/80 border border-neon-purple/20">
+                    Full-Stack
+                  </span>
+                  <span className="px-2.5 py-1 rounded-md bg-neon-cyan/10 text-neon-cyan/80 border border-neon-cyan/20">
+                    AI/RAG
                   </span>
                   <span className="px-2.5 py-1 rounded-md bg-neon-green/10 text-neon-green/80 border border-neon-green/20">
                     Deployed

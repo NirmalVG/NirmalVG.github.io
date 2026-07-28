@@ -19,12 +19,13 @@ interface Experience {
 const experiences: Experience[] = [
   {
     company: "Independent Developer",
-    role: "Career Break — Developer & Academic Upskilling",
+    role: "Career Break — AI Systems Development & Academic Upskilling",
     period: "Jul 2024 — Present",
     location: "Thrissur, Kerala",
     description: [
+      "Designed and shipped KeralaGPT, a production RAG system with hybrid retrieval, reranking, and LLM orchestration, deployed across Vercel/Render/Supabase.",
       "Built Skin Lens, a full-stack AI-powered cosmetic ingredient analyzer, independently from concept to deployment.",
-      "Pursuing Bachelor of Computer Applications (BCA) at Amity University Online to formalize software engineering fundamentals.",
+      "Pursuing a BCA at Amity University Online, to formalize software engineering and systems fundamentals.",
     ],
     highlights: ["Full-Stack AI", "Gemini Vision", "Self-Directed"],
     projects: "Skin Lens",
@@ -164,7 +165,9 @@ export default function ExperienceTimeline() {
                   <span className="text-xs text-theme-tertiary font-medium">
                     {exp.period}
                   </span>
-                  <p className="text-xs text-theme-tertiary mt-0.5">{exp.location}</p>
+                  <p className="text-xs text-theme-tertiary mt-0.5">
+                    {exp.location}
+                  </p>
                 </div>
               </div>
 

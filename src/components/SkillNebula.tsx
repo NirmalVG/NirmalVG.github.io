@@ -40,16 +40,33 @@ const skills: Skill[] = [
   { name: "Git", color: "#f97316", category: "cloud" },
   { name: "GitHub", color: "#a855f7", category: "cloud" },
   { name: "LLM Integration", color: "#f97316", category: "ai" },
+  { name: "RAG Pipelines", color: "#8b5cf6", category: "ai" },
+  { name: "Hybrid Retrieval (BM25 + Dense)", color: "#a855f7", category: "ai" },
+  { name: "Cohere Rerank", color: "#ec4899", category: "ai" },
+  { name: "Groq (LLaMA Inference)", color: "#7c3aed", category: "ai" },
+  { name: "Gemini Vision API", color: "#06b6d4", category: "ai" },
+  { name: "OpenAI API", color: "#10b981", category: "ai" },
+  { name: "Prompt Engineering", color: "#f59e0b", category: "ai" },
+  { name: "Vector Search (pgvector)", color: "#3b82f6", category: "ai" },
 ]
 
 const categoryLabels: Record<string, { label: string; color: string }> = {
+  ai: { label: "AI & LLM Engineering", color: "#8b5cf6" },
   frontend: { label: "Frontend", color: "#06b6d4" },
   backend: { label: "Backend", color: "#10b981" },
   database: { label: "Databases", color: "#3b82f6" },
   cloud: { label: "Cloud & DevOps", color: "#f97316" },
 }
 
-function SkillTag({ skill, index, handTrackingEnabled }: { skill: Skill; index: number; handTrackingEnabled: boolean }) {
+function SkillTag({
+  skill,
+  index,
+  handTrackingEnabled,
+}: {
+  skill: Skill
+  index: number
+  handTrackingEnabled: boolean
+}) {
   const [scope, animate] = useAnimate()
   const hasStartedRef = useRef(false)
   const animationRef = useRef<any>(null)
@@ -101,10 +118,7 @@ function SkillTag({ skill, index, handTrackingEnabled }: { skill: Skill; index: 
   // When hand tracking is on, render without Framer Motion animations
   if (handTrackingEnabled) {
     return (
-      <div
-        ref={scope}
-        className="relative group cursor-default"
-      >
+      <div ref={scope} className="relative group cursor-default">
         <span
           className="inline-flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-xl text-[11px] sm:text-xs font-medium backdrop-blur-xl border transition-all duration-300"
           style={{
@@ -239,7 +253,12 @@ export default function SkillNebula() {
       <div className="max-w-5xl mx-auto relative min-h-[300px] flex items-center justify-center">
         <div className="flex flex-wrap justify-center gap-2.5 sm:gap-3">
           {skills.map((skill, index) => (
-            <SkillTag key={skill.name} skill={skill} index={index} handTrackingEnabled={handTrackingEnabled} />
+            <SkillTag
+              key={skill.name}
+              skill={skill}
+              index={index}
+              handTrackingEnabled={handTrackingEnabled}
+            />
           ))}
         </div>
       </div>
