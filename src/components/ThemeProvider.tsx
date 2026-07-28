@@ -42,23 +42,10 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
 
   useEffect(() => {
     const stored = localStorage.getItem('theme') as Theme | null
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    const initial = stored || (systemPrefersDark ? 'dark' : 'light')
+    const initial = stored || 'dark'
     setThemeState(initial)
     applyTheme(initial)
     setMounted(true)
-
-    // Listen for system theme changes (only if no stored preference)
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)')
-    const handleChange = (e: MediaQueryListEvent) => {
-      if (!localStorage.getItem('theme')) {
-        const newTheme = e.matches ? 'dark' : 'light'
-        setThemeState(newTheme)
-        applyTheme(newTheme)
-      }
-    }
-    mediaQuery.addEventListener('change', handleChange)
-    return () => mediaQuery.removeEventListener('change', handleChange)
   }, [applyTheme])
 
   // Prevent flash of wrong theme
