@@ -19,6 +19,9 @@ const outfit = Outfit({
   display: "swap",
 })
 
+const siteUrl = "https://nirmalvg.github.io"
+const ogImageUrl = `${siteUrl}/og-image.jpg`
+
 export const metadata: Metadata = {
   title: "Nirmal V G | AI Engineer (Full Stack) — RAG, LLMs, Next.js, FastAPI",
   description:
@@ -39,9 +42,9 @@ export const metadata: Metadata = {
     "Portfolio",
     "Kerala",
   ],
-  authors: [{ name: "Nirmal V G", url: "https://nirmalvg.github.io" }],
+  authors: [{ name: "Nirmal V G", url: siteUrl }],
   creator: "Nirmal V G",
-  metadataBase: new URL("https://nirmalvg.github.io"),
+  metadataBase: new URL(siteUrl),
   alternates: {
     canonical: "/",
   },
@@ -53,15 +56,16 @@ export const metadata: Metadata = {
     title: "Nirmal V G | AI Engineer (Full Stack)",
     description:
       "Building production-grade RAG systems and LLM-integrated full-stack applications — from vector retrieval pipelines to shipped UI.",
-    url: "https://nirmalvg.github.io",
+    url: siteUrl,
     siteName: "Nirmal V G — Portfolio",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: "https://nirmalvg.github.io/og-image.png",
+        url: ogImageUrl,
         width: 1200,
         height: 630,
+        type: "image/jpeg",
         alt: "Nirmal V G — AI Engineer (Full Stack) Portfolio",
       },
     ],
@@ -71,11 +75,12 @@ export const metadata: Metadata = {
     title: "Nirmal V G | AI Engineer (Full Stack)",
     description:
       "Building production-grade RAG systems and LLM-integrated full-stack applications — from vector retrieval pipelines to shipped UI.",
-    images: ["https://nirmalvg.github.io/og-image.png"],
+    images: [ogImageUrl],
   },
   other: {
     "theme-color": "#050505",
-    "og:image:secure_url": "https://nirmalvg.github.io/og-image.png",
+    "og:image:secure_url": ogImageUrl,
+    "og:image:type": "image/jpeg",
   },
 }
 
