@@ -102,9 +102,9 @@ export default function Hero() {
           <span className="text-theme-tertiary">·</span>{" "}
           <span className="text-neon-purple">LLMs</span>{" "}
           <span className="text-theme-tertiary">·</span>{" "}
-          <span className="text-neon-pink">Python</span>
+          <span className="text-neon-pink">Next.js</span>
           <span className="text-theme-tertiary">·</span>{" "}
-          <span className="text-neon-blue">Next.js</span>
+          <span className="text-neon-blue">FastAPI</span>
         </motion.h2>
 
         {/* Subheadline */}
