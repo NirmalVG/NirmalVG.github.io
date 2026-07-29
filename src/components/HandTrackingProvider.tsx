@@ -32,9 +32,14 @@ export function useHandTracking() {
   return useContext(HandTrackingContext);
 }
 
-/* ───── CDN script loader ───── */
+/* ───── CDN script loader for tasks-vision ───── */
 
-function loadScript(src: string): Promise<void> {
+const TASKS_VISION_CDN =
+  "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm";
+
+function loadTasksVisionScript(): Promise<void> {
+  const src =
+    "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision/vision_bundle.js";
   return new Promise((resolve, reject) => {
     if (document.querySelector(`script[src="${src}"]`)) {
       resolve();
@@ -139,8 +144,9 @@ export default function HandTrackingProvider({
 
   // Refs for tracking state (not in React state to avoid re-renders every frame)
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const handsInstanceRef = useRef<any>(null);
-  const cameraInstanceRef = useRef<any>(null);
+  const handLandmarkerRef = useRef<any>(null);
+  const streamRef = useRef<MediaStream | null>(null);
+  const detectionRafRef = useRef<number | null>(null);
   const prevAvgYRef = useRef<number | null>(null);
   const smoothedHandYRef = useRef(0.5);
   const smoothedVelocityRef = useRef(0);
@@ -163,25 +169,29 @@ export default function HandTrackingProvider({
   /* ──────────────── Cleanup ──────────────── */
 
   const cleanup = useCallback(() => {
-    // Stop camera
-    if (cameraInstanceRef.current) {
+    // Stop detection loop
+    if (detectionRafRef.current) {
+      cancelAnimationFrame(detectionRafRef.current);
+      detectionRafRef.current = null;
+    }
+
+    // Close HandLandmarker
+    if (handLandmarkerRef.current) {
       try {
-        cameraInstanceRef.current.stop();
+        handLandmarkerRef.current.close();
       } catch {
         /* ignore */
       }
-      cameraInstanceRef.current = null;
+      handLandmarkerRef.current = null;
     }
-    // Close MediaPipe Hands
-    if (handsInstanceRef.current) {
-      try {
-        handsInstanceRef.current.close();
-      } catch {
-        /* ignore */
-      }
-      handsInstanceRef.current = null;
+
+    // Release camera stream
+    if (streamRef.current) {
+      streamRef.current.getTracks().forEach((t) => t.stop());
+      streamRef.current = null;
     }
-    // Release video stream
+
+    // Release video element
     if (videoRef.current?.srcObject) {
       (videoRef.current.srcObject as MediaStream)
         .getTracks()
@@ -210,28 +220,135 @@ export default function HandTrackingProvider({
     }
   }, []);
 
+  /* ──────────────── Process results (shared logic) ──────────────── */
+
+  const processResults = useCallback(
+    (landmarks: Array<Array<{ x: number; y: number }>>) => {
+      const lm = landmarks?.[0];
+
+      if (lm) {
+        /* --- Hand IS detected --- */
+        const indexTip = lm[8];
+        const middleTip = lm[12];
+
+        const scrollGesture = isTwoFingerScrollGesture(lm);
+        const avgY = (indexTip.y + middleTip.y) / 2;
+        setHandY(avgY);
+        setIsHandDetected(true);
+
+        // Clear hand-lost timer
+        if (handLostTimerRef.current) {
+          clearTimeout(handLostTimerRef.current);
+          handLostTimerRef.current = null;
+        }
+
+        if (scrollGesture) {
+          /* Two-finger scroll — only index + middle finger movement */
+          const wasActive = scrollGestureActiveRef.current;
+
+          if (!wasActive) {
+            // Sync to current scroll so the page doesn't jump when the gesture starts
+            smoothedHandYRef.current = avgY;
+            scrollTargetPositionRef.current = getScrollTop();
+          }
+
+          scrollGestureActiveRef.current = true;
+
+          smoothedHandYRef.current =
+            smoothedHandYRef.current * (1 - HAND_Y_SMOOTH) +
+            avgY * HAND_Y_SMOOTH;
+
+          scrollTargetPositionRef.current = handYToScrollTarget(
+            smoothedHandYRef.current,
+          );
+
+          const now = performance.now();
+          if (
+            prevAvgYRef.current !== null &&
+            lastGestureTimeRef.current !== null
+          ) {
+            const dtSec = Math.min(
+              (now - lastGestureTimeRef.current) / 1000,
+              MAX_DT_SEC,
+            );
+            const rawDelta = avgY - prevAvgYRef.current;
+
+            if (dtSec > 0) {
+              const instantVelocity =
+                Math.abs(rawDelta) > DEADZONE ? rawDelta / dtSec : 0;
+
+              smoothedVelocityRef.current =
+                smoothedVelocityRef.current * (1 - EMA_ALPHA) +
+                instantVelocity * EMA_ALPHA;
+            }
+          }
+
+          prevAvgYRef.current = avgY;
+          lastGestureTimeRef.current = now;
+        } else {
+          scrollGestureActiveRef.current = false;
+          prevAvgYRef.current = null;
+          lastGestureTimeRef.current = null;
+          smoothedVelocityRef.current *= DECAY_NO_GESTURE;
+        }
+      } else {
+        /* --- No hand detected --- */
+        scrollGestureActiveRef.current = false;
+        prevAvgYRef.current = null;
+        lastGestureTimeRef.current = null;
+        smoothedVelocityRef.current *= DECAY_NO_HAND;
+
+        // Mark hand as lost after a short grace period (avoids flicker)
+        if (!handLostTimerRef.current) {
+          handLostTimerRef.current = setTimeout(() => {
+            setIsHandDetected(false);
+            handLostTimerRef.current = null;
+          }, 500);
+        }
+      }
+    },
+    [],
+  );
+
   /* ──────────────── Start hand tracking ──────────────── */
 
   const startTracking = useCallback(async () => {
     try {
-      // 1. Load MediaPipe scripts from CDN
-      await loadScript(
-        "https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js",
-      );
-      await loadScript(
-        "https://cdn.jsdelivr.net/npm/@mediapipe/hands/hands.js",
-      );
+      // 1. Load the tasks-vision bundle from CDN
+      await loadTasksVisionScript();
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const win = window as any;
-      const HandsClass = win.Hands;
-      const CameraClass = win.Camera;
+      const vision = (window as any).Vision;
 
-      if (!HandsClass || !CameraClass) {
-        throw new Error("MediaPipe globals not found after loading scripts");
+      if (!vision || !vision.FilesetResolver || !vision.HandLandmarker) {
+        throw new Error(
+          "MediaPipe Tasks Vision globals not found after loading script",
+        );
       }
 
-      // 2. Create hidden video element for camera feed
+      const FilesetResolver = vision.FilesetResolver;
+      const HandLandmarker = vision.HandLandmarker;
+
+      // 2. Create the vision fileset resolver
+      const wasmFileset = await FilesetResolver.forVisionTasks(TASKS_VISION_CDN);
+
+      // 3. Create HandLandmarker instance
+      const handLandmarker = await HandLandmarker.createFromOptions(wasmFileset, {
+        baseOptions: {
+          modelAssetPath:
+            "https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/latest/hand_landmarker.task",
+          delegate: "GPU",
+        },
+        runningMode: "VIDEO",
+        numHands: 1,
+        minHandDetectionConfidence: 0.5,
+        minHandPresenceConfidence: 0.5,
+        minTrackingConfidence: 0.5,
+      });
+
+      handLandmarkerRef.current = handLandmarker;
+
+      // 4. Create hidden video element for camera feed
       const video = document.createElement("video");
       video.setAttribute("playsinline", "");
       video.setAttribute("autoplay", "");
@@ -240,125 +357,52 @@ export default function HandTrackingProvider({
       document.body.appendChild(video);
       videoRef.current = video;
 
-      // 3. Initialise MediaPipe Hands
-      const hands = new HandsClass({
-        locateFile: (file: string) =>
-          file.startsWith("http")
-            ? file
-            : `https://cdn.jsdelivr.net/npm/@mediapipe/hands/${file}`,
+      // 5. Start the camera stream
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: { width: 320, height: 240, facingMode: "user" },
+      });
+      streamRef.current = stream;
+      video.srcObject = stream;
+
+      await new Promise<void>((resolve) => {
+        video.onloadedmetadata = () => {
+          video.play();
+          resolve();
+        };
       });
 
-      hands.setOptions({
-        maxNumHands: 1,
-        modelComplexity: 0, // lite model for performance
-        minDetectionConfidence: 0.6,
-        minTrackingConfidence: 0.5,
-      });
+      // 6. Start the per-frame detection loop
+      let lastTimestamp = -1;
 
-      // 4. Process each detection frame
-      hands.onResults((results: any) => {
-        const lm = results.multiHandLandmarks?.[0];
+      const detect = () => {
+        if (!handLandmarkerRef.current || !videoRef.current) return;
 
-        if (lm) {
-          /* --- Hand IS detected --- */
-          const indexTip = lm[8];
-          const middleTip = lm[12];
-
-          const scrollGesture = isTwoFingerScrollGesture(lm);
-          const avgY = (indexTip.y + middleTip.y) / 2;
-          setHandY(avgY);
-          setIsHandDetected(true);
-
-          // Clear hand-lost timer
-          if (handLostTimerRef.current) {
-            clearTimeout(handLostTimerRef.current);
-            handLostTimerRef.current = null;
-          }
-
-          if (scrollGesture) {
-            /* Two-finger scroll — only index + middle finger movement */
-            const wasActive = scrollGestureActiveRef.current;
-
-            if (!wasActive) {
-              // Sync to current scroll so the page doesn't jump when the gesture starts
-              smoothedHandYRef.current = avgY;
-              scrollTargetPositionRef.current = getScrollTop();
-            }
-
-            scrollGestureActiveRef.current = true;
-
-            smoothedHandYRef.current =
-              smoothedHandYRef.current * (1 - HAND_Y_SMOOTH) +
-              avgY * HAND_Y_SMOOTH;
-
-            scrollTargetPositionRef.current = handYToScrollTarget(
-              smoothedHandYRef.current,
+        const nowMs = performance.now();
+        // HandLandmarker requires strictly increasing timestamps
+        if (nowMs > lastTimestamp) {
+          try {
+            const results = handLandmarkerRef.current.detectForVideo(
+              videoRef.current,
+              nowMs,
             );
-
-            const now = performance.now();
-            if (prevAvgYRef.current !== null && lastGestureTimeRef.current !== null) {
-              const dtSec = Math.min(
-                (now - lastGestureTimeRef.current) / 1000,
-                MAX_DT_SEC,
-              );
-              const rawDelta = avgY - prevAvgYRef.current;
-
-              if (dtSec > 0) {
-                const instantVelocity =
-                  Math.abs(rawDelta) > DEADZONE ? rawDelta / dtSec : 0;
-
-                smoothedVelocityRef.current =
-                  smoothedVelocityRef.current * (1 - EMA_ALPHA) +
-                  instantVelocity * EMA_ALPHA;
-              }
-            }
-
-            prevAvgYRef.current = avgY;
-            lastGestureTimeRef.current = now;
-          } else {
-            scrollGestureActiveRef.current = false;
-            prevAvgYRef.current = null;
-            lastGestureTimeRef.current = null;
-            smoothedVelocityRef.current *= DECAY_NO_GESTURE;
+            processResults(results.landmarks);
+          } catch (err) {
+            // Occasionally the video frame may not be ready; silently skip
+            console.debug("[HandTracking] Detection frame skipped:", err);
           }
-        } else {
-          /* --- No hand detected --- */
-          scrollGestureActiveRef.current = false;
-          prevAvgYRef.current = null;
-          lastGestureTimeRef.current = null;
-          smoothedVelocityRef.current *= DECAY_NO_HAND;
-
-          // Mark hand as lost after a short grace period (avoids flicker)
-          if (!handLostTimerRef.current) {
-            handLostTimerRef.current = setTimeout(() => {
-              setIsHandDetected(false);
-              handLostTimerRef.current = null;
-            }, 500);
-          }
+          lastTimestamp = nowMs;
         }
-      });
 
-      handsInstanceRef.current = hands;
+        detectionRafRef.current = requestAnimationFrame(detect);
+      };
 
-      // 5. Start camera → feeds into MediaPipe Hands
-      const camera = new CameraClass(video, {
-        onFrame: async () => {
-          if (handsInstanceRef.current && videoRef.current) {
-            await handsInstanceRef.current.send({ image: videoRef.current });
-          }
-        },
-        width: 320,
-        height: 240,
-      });
-
-      cameraInstanceRef.current = camera;
-      await camera.start();
+      detectionRafRef.current = requestAnimationFrame(detect);
     } catch (err) {
       console.error("[HandTracking] Initialisation failed:", err);
       setHandTrackingEnabled(false);
       cleanup();
     }
-  }, [cleanup]);
+  }, [cleanup, processResults]);
 
   /* ──────────────── Pre-trigger whileInView animations ──────────────── */
 
