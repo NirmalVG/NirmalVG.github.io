@@ -98,13 +98,12 @@ export default function Hero() {
           variants={itemVariants}
           className="font-[var(--font-outfit)] text-lg sm:text-2xl md:text-3xl font-medium text-theme-primary mb-4 tracking-wide"
         >
-          AI Engineer (Full Stack) — <span className="text-neon-cyan">RAG</span>{" "}
+          React.js / Next.js Developer —{" "}
+          <span className="text-neon-cyan">TypeScript</span>{" "}
           <span className="text-theme-tertiary">·</span>{" "}
-          <span className="text-neon-purple">LLMs</span>{" "}
+          <span className="text-neon-purple">Tailwind CSS</span>{" "}
           <span className="text-theme-tertiary">·</span>{" "}
-          <span className="text-neon-pink">Next.js</span>
-          <span className="text-theme-tertiary">·</span>{" "}
-          <span className="text-neon-blue">FastAPI</span>
+          <span className="text-neon-pink">TanStack Query</span>
         </motion.h2>
 
         {/* Subheadline */}
@@ -112,11 +111,12 @@ export default function Hero() {
           variants={itemVariants}
           className="text-base sm:text-lg text-theme-secondary max-w-2xl mx-auto mb-6 leading-relaxed"
         >
-          I build production AI systems end-to-end — from hybrid retrieval and
-          LLM orchestration on the backend to the interfaces people actually
-          use. 2+ years shipping React/Next.js products professionally, now
-          focused on retrieval-augmented generation, LLM integration, and
-          evaluation-driven AI engineering.
+          React.js and Next.js Developer with nearly 2 years of professional
+          experience building fast, scalable production web applications.
+          Delivered 13+ client projects across healthcare, real estate,
+          e-commerce and construction. Since mid-2024, building full-stack AI
+          products and using AI-assisted workflows to ship frontend features
+          faster.
         </motion.p>
 
         {/* Location & Contact */}
@@ -176,9 +176,9 @@ export default function Hero() {
               <div className="flex items-center gap-2">
                 <span className="text-3xl font-bold gradient-text">13+</span>
                 <span className="text-xs text-theme-secondary text-left leading-tight max-w-[160px] sm:max-w-[200px]">
-                  production projects delivered across healthcare, real estate,
-                  e-commerce &amp; construction — now building AI-native
-                  products from architecture to deployment
+                  client projects delivered across healthcare, real estate,
+                  e-commerce &amp; construction — from multilingual,
+                  SEO-optimized sites to dynamic search interfaces
                 </span>
               </div>
             </div>

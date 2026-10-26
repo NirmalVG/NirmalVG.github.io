@@ -23,22 +23,21 @@ const siteUrl = "https://nirmalvg.github.io"
 const ogImageUrl = `${siteUrl}/og-image.jpg`
 
 export const metadata: Metadata = {
-  title: "Nirmal V G | AI Engineer (Full Stack) — RAG, LLMs, Next.js, FastAPI",
+  title: "Nirmal V G | React.js / Next.js Developer — TypeScript · Tailwind CSS · TanStack Query",
   description:
-    "Portfolio of Nirmal V G — AI Engineer (Full Stack) building production RAG systems, LLM-integrated applications, and scalable full-stack products using Python, FastAPI, React, and Next.js.",
+    "Portfolio of Nirmal V G — React.js and Next.js Developer with nearly 2 years of professional experience building fast, scalable production web applications with React, Next.js (App Router) and TypeScript.",
   keywords: [
     "Nirmal V G",
-    "AI Engineer",
-    "AI Engineer Full Stack",
-    "Full Stack AI Engineer",
-    "RAG",
-    "LLM Engineering",
-    "Python",
-    "FastAPI",
-    "React",
+    "React Developer",
+    "Next.js Developer",
+    "React.js",
+    "Next.js",
+    "Tailwind CSS",
+    "TanStack Query",
+    "Frontend Developer",
+    "Full Stack Developer",
     "Next.js",
     "TypeScript",
-    "Vector Search",
     "Portfolio",
     "Kerala",
   ],
@@ -53,9 +52,9 @@ export const metadata: Metadata = {
     follow: true,
   },
   openGraph: {
-    title: "Nirmal V G | AI Engineer (Full Stack)",
+    title: "Nirmal V G | React.js / Next.js Developer",
     description:
-      "Building production-grade RAG systems and LLM-integrated full-stack applications — from vector retrieval pipelines to shipped UI.",
+      "Building fast, scalable production web applications with React, Next.js (App Router) and TypeScript. 13+ client projects delivered across healthcare, real estate, e-commerce & construction.",
     url: siteUrl,
     siteName: "Nirmal V G — Portfolio",
     locale: "en_US",
@@ -66,15 +65,15 @@ export const metadata: Metadata = {
         width: 1200,
         height: 630,
         type: "image/jpeg",
-        alt: "Nirmal V G — AI Engineer (Full Stack) Portfolio",
+        alt: "Nirmal V G — React.js / Next.js Developer Portfolio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Nirmal V G | AI Engineer (Full Stack)",
+    title: "Nirmal V G | React.js / Next.js Developer",
     description:
-      "Building production-grade RAG systems and LLM-integrated full-stack applications — from vector retrieval pipelines to shipped UI.",
+      "Building fast, scalable production web applications with React, Next.js (App Router) and TypeScript. 13+ client projects delivered across healthcare, real estate, e-commerce & construction.",
     images: [ogImageUrl],
   },
   other: {

@@ -11,51 +11,54 @@ interface Skill {
 }
 
 const skills: Skill[] = [
+  // Frontend
   { name: "React.js", color: "#06b6d4", category: "frontend" },
   { name: "Next.js (App Router)", color: "#a855f7", category: "frontend" },
   { name: "TypeScript", color: "#3b82f6", category: "frontend" },
   { name: "JavaScript (ES6+)", color: "#f59e0b", category: "frontend" },
+  { name: "HTML5", color: "#f97316", category: "frontend" },
   { name: "Tailwind CSS", color: "#06b6d4", category: "frontend" },
   { name: "SCSS/SASS", color: "#ec4899", category: "frontend" },
-  { name: "HTML5", color: "#f97316", category: "frontend" },
   { name: "ShadCN/UI", color: "#a855f7", category: "frontend" },
-  { name: "Redux Toolkit", color: "#7c3aed", category: "frontend" },
-  { name: "Zustand", color: "#06b6d4", category: "frontend" },
+  // State & Data Fetching
   { name: "TanStack Query", color: "#ec4899", category: "frontend" },
   { name: "SWR", color: "#3b82f6", category: "frontend" },
-  { name: "Framer Motion", color: "#ec4899", category: "frontend" },
+  { name: "Redux Toolkit", color: "#7c3aed", category: "frontend" },
+  { name: "Zustand", color: "#06b6d4", category: "frontend" },
+  { name: "REST API Integration", color: "#10b981", category: "frontend" },
+  // Backend & Databases
   { name: "Node.js", color: "#10b981", category: "backend" },
   { name: "Express.js", color: "#10b981", category: "backend" },
-  { name: "FastAPI", color: "#10b981", category: "backend" },
-  { name: "REST API Design", color: "#10b981", category: "backend" },
+  { name: "FastAPI (Python)", color: "#10b981", category: "backend" },
   { name: "Prisma ORM", color: "#a855f7", category: "backend" },
   { name: "PostgreSQL", color: "#3b82f6", category: "database" },
-  { name: "MySQL", color: "#06b6d4", category: "database" },
   { name: "MongoDB", color: "#10b981", category: "database" },
-  { name: "Supabase", color: "#10b981", category: "database" },
-  { name: "AWS", color: "#f97316", category: "cloud" },
+  { name: "Supabase (pgvector)", color: "#10b981", category: "database" },
+  // Cloud & Tooling
   { name: "Vercel", color: "#a855f7", category: "cloud" },
   { name: "Netlify", color: "#06b6d4", category: "cloud" },
   { name: "Render", color: "#3b82f6", category: "cloud" },
+  { name: "AWS", color: "#f97316", category: "cloud" },
   { name: "Git", color: "#f97316", category: "cloud" },
   { name: "GitHub", color: "#a855f7", category: "cloud" },
+  // AI-Assisted Engineering
+  { name: "Cursor AI", color: "#8b5cf6", category: "ai" },
+  { name: "Claude Code", color: "#8b5cf6", category: "ai" },
+  { name: "AGENTS.md Workflows", color: "#a855f7", category: "ai" },
+  // AI Integration
   { name: "LLM Integration", color: "#f97316", category: "ai" },
-  { name: "RAG Pipelines", color: "#8b5cf6", category: "ai" },
-  { name: "Hybrid Retrieval (BM25 + Dense)", color: "#a855f7", category: "ai" },
-  { name: "Cohere Rerank", color: "#ec4899", category: "ai" },
-  { name: "Groq (LLaMA Inference)", color: "#7c3aed", category: "ai" },
-  { name: "Gemini Vision API", color: "#06b6d4", category: "ai" },
-  { name: "OpenAI API", color: "#10b981", category: "ai" },
-  { name: "Prompt Engineering", color: "#f59e0b", category: "ai" },
-  { name: "Vector Search (pgvector)", color: "#3b82f6", category: "ai" },
+  { name: "RAG", color: "#8b5cf6", category: "ai" },
+  { name: "Gemini API", color: "#06b6d4", category: "ai" },
+  { name: "Groq API", color: "#7c3aed", category: "ai" },
+  { name: "OpenRouter API", color: "#10b981", category: "ai" },
 ]
 
 const categoryLabels: Record<string, { label: string; color: string }> = {
-  ai: { label: "AI & LLM Engineering", color: "#8b5cf6" },
-  frontend: { label: "Frontend", color: "#06b6d4" },
+  frontend: { label: "Frontend & State", color: "#06b6d4" },
   backend: { label: "Backend", color: "#10b981" },
   database: { label: "Databases", color: "#3b82f6" },
-  cloud: { label: "Cloud & DevOps", color: "#f97316" },
+  cloud: { label: "Cloud & Tooling", color: "#f97316" },
+  ai: { label: "AI Engineering & Tools", color: "#8b5cf6" },
 }
 
 function SkillTag({

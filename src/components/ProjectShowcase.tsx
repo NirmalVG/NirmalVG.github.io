@@ -20,22 +20,23 @@ const techStack = [
   "Netlify",
 ]
 
-const keralaFeatures = [
-  "Hybrid BM25 + dense retrieval",
-  "Cohere Rerank v3",
-  "Groq LLaMA inference",
-  "pgvector on Supabase",
+const signalFeatures = [
+  "Natural-language codebase Q&A",
+  "RAG with code citations",
+  "Tree-sitter code parsing",
+  "Semantic retrieval via pgvector",
 ]
 
-const keralaTechStack = [
-  "Next.js",
+const signalTechStack = [
+  "Next.js 16",
+  "Tailwind CSS v4",
+  "shadcn/ui",
+  "Zustand",
+  "TanStack Query v5",
   "FastAPI",
   "Supabase/pgvector",
-  "Cohere",
   "Groq",
-  "Tavily",
   "Vercel",
-  "Render",
 ]
 
 interface Project {
@@ -102,10 +103,10 @@ export default function ProjectShowcase() {
   const mouseX = useMotionValue(0)
   const mouseY = useMotionValue(0)
 
-  // Kerala card motion values and ref
-  const keralaCardRef = useRef<HTMLDivElement>(null)
-  const mouseXKerala = useMotionValue(0)
-  const mouseYKerala = useMotionValue(0)
+  // Signal card motion values and ref
+  const signalCardRef = useRef<HTMLDivElement>(null)
+  const mouseXSignal = useMotionValue(0)
+  const mouseYSignal = useMotionValue(0)
 
   const rotateX = useSpring(useTransform(mouseY, [-0.5, 0.5], [8, -8]), {
     stiffness: 200,
@@ -116,12 +117,12 @@ export default function ProjectShowcase() {
     damping: 20,
   })
 
-  const keralaRotateX = useSpring(
-    useTransform(mouseYKerala, [-0.5, 0.5], [8, -8]),
+  const signalRotateX = useSpring(
+    useTransform(mouseYSignal, [-0.5, 0.5], [8, -8]),
     { stiffness: 200, damping: 20 },
   )
-  const keralaRotateY = useSpring(
-    useTransform(mouseXKerala, [-0.5, 0.5], [-8, 8]),
+  const signalRotateY = useSpring(
+    useTransform(mouseXSignal, [-0.5, 0.5], [-8, 8]),
     { stiffness: 200, damping: 20 },
   )
 
@@ -137,16 +138,16 @@ export default function ProjectShowcase() {
     mouseY.set(0)
   }
 
-  const handleKeralaMouseMove = (e: React.MouseEvent) => {
-    if (!keralaCardRef.current) return
-    const rect = keralaCardRef.current.getBoundingClientRect()
-    mouseXKerala.set((e.clientX - rect.left) / rect.width - 0.5)
-    mouseYKerala.set((e.clientY - rect.top) / rect.height - 0.5)
+  const handleSignalMouseMove = (e: React.MouseEvent) => {
+    if (!signalCardRef.current) return
+    const rect = signalCardRef.current.getBoundingClientRect()
+    mouseXSignal.set((e.clientX - rect.left) / rect.width - 0.5)
+    mouseYSignal.set((e.clientY - rect.top) / rect.height - 0.5)
   }
 
-  const handleKeralaMouseLeave = () => {
-    mouseXKerala.set(0)
-    mouseYKerala.set(0)
+  const handleSignalMouseLeave = () => {
+    mouseXSignal.set(0)
+    mouseYSignal.set(0)
   }
 
   return (
@@ -323,21 +324,21 @@ export default function ProjectShowcase() {
         </motion.div>
       </div>
 
-      {/* KeralaGPT Card */}
+      {/* Signal Card */}
       <div
         className="max-w-5xl mx-auto mb-16 sm:mb-28"
         style={{ perspective: 1000 }}
       >
         <motion.div
-          ref={keralaCardRef}
+          ref={signalCardRef}
           className="glass-strong relative overflow-hidden rounded-3xl p-1 cursor-default"
           style={{
-            rotateX: keralaRotateX,
-            rotateY: keralaRotateY,
+            rotateX: signalRotateX,
+            rotateY: signalRotateY,
             transformStyle: "preserve-3d",
           }}
-          onMouseMove={handleKeralaMouseMove}
-          onMouseLeave={handleKeralaMouseLeave}
+          onMouseMove={handleSignalMouseMove}
+          onMouseLeave={handleSignalMouseLeave}
           initial={{ opacity: 0, y: 60 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -353,28 +354,30 @@ export default function ProjectShowcase() {
               <div className="flex items-center gap-3 mb-6">
                 <FloatingElement distance={5} duration={4}>
                   <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-neon-purple/30 to-neon-cyan/30 flex items-center justify-center backdrop-blur-sm border border-theme">
-                    <span className="text-xl">🏛️</span>
+                    <span className="text-xl">⚡</span>
                   </div>
                 </FloatingElement>
                 <div>
                   <h3 className="font-[var(--font-outfit)] text-2xl sm:text-3xl font-bold text-theme-heading">
-                    KeralaGPT
+                    Signal
                   </h3>
                   <p className="text-sm text-neon-cyan/80 font-medium">
-                    Kerala Cultural RAG System
+                    AI Developer Workspace for Codebase Q&A
                   </p>
                 </div>
               </div>
 
               <p className="text-theme-secondary leading-relaxed mb-6 text-sm sm:text-base">
-                A production RAG system answering questions on Kerala culture,
-                art, and history using hybrid BM25 + dense retrieval, Cohere
-                Rerank v3 for precision reranking, and Groq-hosted LLaMA for
-                generation — grounded with live web context via Tavily.
+                A full-stack workspace where developers upload a codebase and
+                ask natural-language questions, answered through
+                retrieval-augmented generation (RAG) with code citations. Built
+                with a Next.js 16 frontend and a FastAPI backend using
+                tree-sitter for code parsing and Supabase pgvector for semantic
+                retrieval.
               </p>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8">
-                {keralaFeatures.map((feature, i) => (
+                {signalFeatures.map((feature, i) => (
                   <motion.div
                     key={feature}
                     className="flex items-center gap-2 text-sm text-theme-secondary"
@@ -391,13 +394,13 @@ export default function ProjectShowcase() {
 
               <FloatingElement distance={4} delay={0.5} duration={5}>
                 <a
-                  href="https://keralagpt.vercel.app"
+                  href="https://signal-two-steel.vercel.app/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-neon-purple/20 to-neon-cyan/20 border border-theme text-xs sm:text-sm font-medium text-theme-primary hover:border-neon-cyan/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,214,212,0.2)] break-all"
                 >
                   <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
-                  keralagpt.vercel.app
+                  signal-two-steel.vercel.app
                   <svg
                     className="w-4 h-4 text-theme-secondary"
                     fill="none"
@@ -416,13 +419,13 @@ export default function ProjectShowcase() {
 
               <FloatingElement distance={4} delay={0.5} duration={5}>
                 <a
-                  href="https://github.com/NirmalVG/keralagpt"
+                  href="https://github.com/NirmalVG/signal"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex mt-3 items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-neon-purple/20 to-neon-cyan/20 border border-theme text-xs sm:text-sm font-medium text-theme-primary hover:border-neon-cyan/40 transition-all duration-300 hover:shadow-[0_0_20px_rgba(6,214,212,0.2)] break-all"
                 >
                   <span className="w-2 h-2 rounded-full bg-neon-green animate-pulse" />
-                  github.com/NirmalVG/keralagpt
+                  github.com/NirmalVG/signal
                   <svg
                     className="w-4 h-4 text-theme-secondary"
                     fill="none"
@@ -445,7 +448,7 @@ export default function ProjectShowcase() {
                 Tech Stack
               </h4>
               <div className="flex flex-wrap gap-2">
-                {keralaTechStack.map((tech, i) => (
+                {signalTechStack.map((tech, i) => (
                   <motion.span
                     key={tech}
                     className="px-3 py-1.5 rounded-lg text-xs font-medium bg-theme-surface text-theme-secondary border border-theme-subtle hover:border-neon-purple/30 hover:text-theme-primary transition-all duration-300"

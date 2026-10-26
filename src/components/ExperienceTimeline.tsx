@@ -19,16 +19,17 @@ interface Experience {
 const experiences: Experience[] = [
   {
     company: "Independent Developer",
-    role: "Career Break — AI Systems Development & Academic Upskilling",
+    role: "Full-Stack AI Products & Academic Upskilling",
     period: "Jul 2024 — Present",
     location: "Thrissur, Kerala",
     description: [
-      "Designed and shipped KeralaGPT, a production RAG system with hybrid retrieval, reranking, and LLM orchestration, deployed across Vercel/Render/Supabase.",
-      "Built Skin Lens, a full-stack AI-powered cosmetic ingredient analyzer, independently from concept to deployment.",
-      "Pursuing a BCA at Amity University Online, to formalize software engineering and systems fundamentals.",
+      "Built Signal, a full-stack AI developer workspace for codebase Q&A using RAG with code citations, Next.js 16 frontend with Tailwind CSS v4, shadcn/ui, Zustand and TanStack Query v5, and a FastAPI backend with tree-sitter, Supabase pgvector, and Groq.",
+      "Built Skin Lens, a full-stack AI cosmetic ingredient analyzer using Gemini Vision for OCR, with OAuth authentication, ingredient safety scoring, and quiz-based skin profiling.",
+      "Pursuing a BCA at Amity University Online, formalizing software engineering and systems fundamentals.",
+      "Adopted AI-assisted engineering workflows (Cursor AI, Claude Code, AGENTS.md-driven agentic workflows) to ship features faster without compromising code quality.",
     ],
-    highlights: ["Full-Stack AI", "Gemini Vision", "Self-Directed"],
-    projects: "Skin Lens",
+    highlights: ["Next.js 16", "FastAPI", "RAG", "AI-Assisted Engineering"],
+    projects: "Signal · Skin Lens",
     color: "#ec4899",
     icon: "🧠",
   },
